@@ -1,11 +1,8 @@
-
-NAME = inception
-
-all: $(NAME)
-	sudo docker compose -f ./srcs/docker-compose.yml up -d
+all:
+	docker build -t nginx-image ./srcs/requirements/nginx
+#sudo docker compose -f ./srcs/docker-compose.yml up -d
 
 clean:
-	rm -rf $(NAME)
 
 fclean: clean
 
