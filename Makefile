@@ -3,7 +3,7 @@
 all:
 	@sudo sh -c 'echo "127.0.0.1 jlebre.42.fr" >> /etc/hosts'
 	@echo -e '\033[1;32mAdded jlebre.42.fr to hosts file\033[0m'
-	sudo docker-compose -f ./srcs/docker-compose.yml up -d
+	@sudo docker-compose -f ./srcs/docker-compose.yml up -d
 
 # Stop docker-compose
 clean:

@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     php7.3 \
     php7.3-fpm \
     php7.3-mysql \
+    mariadb-client \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
