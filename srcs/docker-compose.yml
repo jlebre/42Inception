@@ -13,3 +13,21 @@ services:
     build: ./requirements/wordpress
     hostname: localhost
     env_file: .env
+    volumes:
+      - ./data/wordpress:/var/www/html/wordpress
+    networks:
+      - project
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    restart: always
+    env_file: .env
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    networks:
+      - project
+
+networks:
+  project:
+    driver: bridge
