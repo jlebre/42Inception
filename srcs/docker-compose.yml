@@ -41,3 +41,11 @@ services:
 networks:
   project:
     driver: bridge
+
+volumes:
+  wp:
+    name: wp
+    driver: local
+  db:
+    name: db
+    driver: local
