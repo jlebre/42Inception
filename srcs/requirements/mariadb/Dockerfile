@@ -2,25 +2,23 @@ FROM debian:buster
 
 EXPOSE 3306
 
-ARG DB_NAME=${DB_NAME}
-ARG DB_USER=${DB_USER}
-ARG DB_PASSWORD=${DB_PASSWORD}
-ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-
 # Update and install mariadb
 RUN apt-get update && apt-get install -y \
     mariadb-server \
+    mariadb-client \
+    vim \
     && rm -rf /var/lib/apt/lists/*
 
-# Delete default mariadb configuration
-RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN mkdir -p /var/run/mysqld \
+    && chown -R mysql:mysql /var/run/mysqld \
+    && chmod 777 /var/run/mysqld
 
 # Copy mariadb configuration
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
+COPY ./tools/configDB.sh /usr/local/bin/
+COPY ./conf/wordpress.sql /usr/local/bin/
+RUN chmod +x /usr/local/bin/configDB.sh
+RUN chmod +x /usr/local/bin/wordpress.sql
 
-COPY tools/createUser.sh /
-RUN bash ./createUser.sh
+ENTRYPOINT [ "/usr/local/bin/configDB.sh" ]
 
-RUN rm -rf createUser.sh
-
-CMD ["mysqld_safe"]
+CMD ["mysqld", "--bind-address=0.0.0.0"]
