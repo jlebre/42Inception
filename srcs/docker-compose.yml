@@ -38,20 +38,20 @@ services:
     networks:
       - project
 
-  networks:
-    project:
-      driver: bridge
+networks:
+  project:
+    driver: bridge
 
-    volumes:
-      wp:
-        driver: local
-        driver_opts:
-          type: none
-          device: /home/jlebre/data/wordpress
-          o: bind
-      db:
-        driver: local
-        driver_opts:
-          type: none
-          device: /home/jlebre/data/mysql
-          o: bind
+volumes:
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jlebre/data/wordpress
+      o: bind
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jlebre/data/mysql
+      o: bind
