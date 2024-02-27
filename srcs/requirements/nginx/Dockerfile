@@ -1,20 +1,16 @@
-FROM debian:buster
+FROM debian:latest
 
 # Update and install nginx
 # Remove cache
 # openssl => generate ssl certificate
-RUN apt-get update && apt-get install -y \
-    nginx \
-    openssl \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y nginx openssl
 
 # Copy nginx configuration
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
-# Create ssl certificate
-RUN openssl req -x509  -days 365 -nodes -newkey rsa:4096 \
-    -keyout /etc/ssl/private/nginx.key \
-    -out /etc/ssl/certs/nginx.crt \
-    -sha256 -subj "/CN=jlebre.42.fr" 
+COPY ./tools/nginx.sh /
+RUN chmod +x /nginx.sh
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 443
+
+CMD ["./nginx.sh"]

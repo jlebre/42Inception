@@ -1,13 +1,16 @@
 #!/bin/sh
 
+sleep 7
+
 # Start the MariaDB service
 service mariadb start
 
-echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb -u root
-echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb -u root
-echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" | mariadb -u root
-echo "FLUSH PRIVILEGES;" | mariadb -u root
-echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" | mariadb -u root
+echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
+echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
+echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" | mariadb
+echo "FLUSH PRIVILEGES;" | mariadb
+
+echo "CREATE DATABASE $MYSQL_DATABASE;" | mariadb
 
 service mariadb stop
 

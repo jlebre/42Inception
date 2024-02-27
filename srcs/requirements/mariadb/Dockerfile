@@ -1,15 +1,12 @@
-FROM debian:buster
+FROM debian:latest
 
 # Update and install mariadb
 RUN apt-get update && apt-get install -y \
     mariadb-server \
-    mariadb-client \
-    vim \
-    && rm -rf /var/lib/apt/lists/*
+    mariadb-client
 
 RUN mkdir -p /run/mysqld \
-    && chown -R mysql:mysql /run/mysqld \
-    && chmod 777 /run/mysqld
+    && chown -R mysql:mysql /run/mysqld
 
 # Copy mariadb configuration
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf

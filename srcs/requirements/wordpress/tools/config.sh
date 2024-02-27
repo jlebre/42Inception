@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 15
+
 mkdir -p /var/www/html
 
 cd /var/www/html
@@ -8,8 +10,30 @@ if [ "$(ls -A /var/www/html)" ]; then
 	rm -rf /var/www/html/*
 fi
 
-curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-wp core install --url=localhost --title=ft_server --admin_user=admin --admin_password=admin --
+wp core download --allow-root
+
+cp /wp-config.php /var/www/html/wp-config.php
+
+if [ -e /etc/php/7.4/fpm/pool.d/www.conf ]; then
+	sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
+else
+	echo "Error"
+fi
+
+wp core install --url=$DOMAIN_NAME/ --title=$WORDPRESS_TITLE \
+	--admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD \
+	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
+
+wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --allow-root
+
+wp theme install astra --activate --allow-root
+
+wp plugin update --all --allow-root
+
+mkdir -p /run/php
+
+/usr/sbin/php-fpm7.4 -F

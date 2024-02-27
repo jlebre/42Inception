@@ -1,27 +1,25 @@
-version: '3.9'
+version: '3'
 
 services:
+
   nginx:
-    container_name: nginx
     build: ./requirements/nginx
-    hostname: localhost
+    restart: always
     ports:
       - 443:443
     volumes:
-      - wp:/var/www/html/wordpress
-    restart: always
+      - wp:/var/www/html
+    depends_on:
+      - wordpress
+      - mariadb
     networks:
       - project
 
   wordpress:
-    container_name: wordpress
+    build: ./requirements/wordpress
+    restart: always
     depends_on:
       - mariadb
-    build:
-      context: ./requirements/wordpress
-      dockerfile: Dockerfile
-    restart: always
-    hostname: localhost
     env_file: .env
     volumes:
       - wp:/var/www/html
@@ -29,7 +27,6 @@ services:
       - project
 
   mariadb:
-    container_name: mariadb
     build: ./requirements/mariadb
     restart: always
     env_file: .env
@@ -47,11 +44,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/jlebre/data/wordpress
       o: bind
+      device: /home/jlebre/data/wp
   db:
     driver: local
     driver_opts:
       type: none
-      device: /home/jlebre/data/mysql
       o: bind
+      device: /home/jlebre/data/db
