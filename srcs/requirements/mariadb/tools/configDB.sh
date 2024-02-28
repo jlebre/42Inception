@@ -1,7 +1,5 @@
 #!/bin/sh
 
-sleep 7
-
 # Start the MariaDB service
 service mariadb start
 

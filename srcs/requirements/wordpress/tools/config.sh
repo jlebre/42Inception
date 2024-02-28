@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sleep 15
-
+# This script is used to configure the WordPress installation
 mkdir -p /var/www/html
 
 cd /var/www/html
@@ -32,8 +31,12 @@ wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDP
 
 wp theme install astra --activate --allow-root
 
+wp plugin install redis-cache --activate --allow-root
+
 wp plugin update --all --allow-root
 
 mkdir -p /run/php
+
+wp redis enable --allow-root
 
 /usr/sbin/php-fpm7.4 -F
