@@ -3,9 +3,8 @@ FROM debian:buster
 # Update and install php
 # Remove cache
 RUN apt-get update && apt-get install -y \
-    iputils-ping wget bash redis php-fpm \
-    php-mysql php-pdo php-gd php-curl \
-    php-xml php-cli php-mbstring php-redis curl
+    iputils-ping php-fpm \
+    php-mysql php-cli curl
 
 # Copy wordpress configuration
 COPY ./tools/config.sh /
