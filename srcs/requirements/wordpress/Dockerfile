@@ -4,7 +4,7 @@ FROM debian:buster
 # Remove cache
 RUN apt-get update && apt-get install -y \
     iputils-ping php-fpm \
-    php-mysql php-cli curl
+    php-mysql curl
 
 # Copy wordpress configuration
 COPY ./tools/config.sh /
