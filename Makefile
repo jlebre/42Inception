@@ -44,8 +44,8 @@ clean:
 # Remove data directory and docker volumes
 # Remove ${LOGIN}.42.fr from hosts file
 fclean: clean
-	@sudo sed -i '' '/${LOGIN}.42.fr/d' /etc/hosts
-	@sudo sed -i '' '/www.${LOGIN}.42.fr/d' /etc/hosts
+	@sudo sed -i'' '/${LOGIN}\.42\.fr/d' /etc/hosts
+	@sudo sed -i'' '/www\.${LOGIN}\.42\.fr/d' /etc/hosts
 	docker system prune -a -f --volumes
 	docker volumes rm srcs_db_data srcs_wp_data
 
