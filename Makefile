@@ -1,8 +1,9 @@
 # Edit ENV variables to match your 42 login
 LOGIN = jlebre
+#LOGIN=${LOGIN}
 
 # Docker-compose command
-DOCKER_COMPOSE = LOGIN=${LOGIN} docker-compose -f ./srcs/docker-compose.yml
+DOCKER_COMPOSE =  docker-compose -f ./srcs/docker-compose.yml
 
 # Default target
 all: up
