@@ -26,8 +26,8 @@ stop:
 # Add jlebre.42.fr to hosts file
 # Create data directory
 setup:
-	@sudo echo "127.0.0.1 jlebre.42.fr" >> /etc/hosts
-	@sudo echo "127.0.0.1 www.jlebre.42.fr" >> /etc/hosts
+	sudo echo 127.0.0.1 jlebre.42.fr >> /etc/hosts
+	sudo echo 127.0.0.1 www.jlebre.42.fr >> /etc/hosts
 	@sudo mkdir -p /home/${LOGIN}
 	@sudo mkdir -p /home/${LOGIN}/data
 	@sudo mkdir -p /home/${LOGIN}/data/wp
