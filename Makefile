@@ -3,16 +3,19 @@
 all: up
 
 up:
-	@DOCKER_BUILDKIT=0 docker-compose -f ./srcs/docker-compose.yml up -d
+	@docker-compose -f ./srcs/docker-compose.yml up -d
 
 build:
-	@DOCKER_BUILDKIT=0 docker-compose -f ./srcs/docker-compose.yml up --build -d
+	@docker-compose -f ./srcs/docker-compose.yml up --build -d
 
 # Stop docker-compose
 down:
-	@docker-compose -f ./srcs/docker-compose.yml down \
+	@docker-compose -f ./srcs/docker-compose.yml down
 
-# Clean and start docker-compose
-re: down all
+stop:
+	@docker-compose -f ./srcs/docker-compose.yml stop
 
-.PHONY: all, up, build, down, re
+start:
+	@docker-compose -f ./srcs/docker-compose.yml start
+
+.PHONY: all, up, build, down, stop, start, re
