@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 
 # Update and install nginx
 # Remove cache

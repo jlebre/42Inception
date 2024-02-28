@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 
 # Update and install mariadb
 RUN apt-get update && apt-get install -y \
