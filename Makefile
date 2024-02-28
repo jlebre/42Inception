@@ -26,11 +26,11 @@ stop:
 # Add ${LOGIN}.42.fr to hosts file
 # Create data directory
 setup:
-	if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then
-		@echo "127.0.0.1 ${LOGIN}.42.fr" | sudo tee -a /etc/hosts
+	@if [ ! grep -q "${LOGIN}.42.fr" /etc/hosts ]; then \
+		@echo "127.0.0.1 ${LOGIN}.42.fr" | sudo tee -a /etc/hosts \
 	fi
-	if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then
-		@echo "127.0.0.1 www.${LOGIN}.42.fr" | sudo tee -a /etc/hosts
+	if [ ! grep -q "${LOGIN}.42.fr" /etc/hosts ]; then \
+		@echo "127.0.0.1 www.${LOGIN}.42.fr" | sudo tee -a /etc/hosts \
 	fi
 	@sudo mkdir -p /home/${LOGIN}
 	@sudo mkdir -p /home/${LOGIN}/data
