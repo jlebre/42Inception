@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   nginx:
     build: ./requirements/nginx/.
     restart: always
@@ -9,31 +8,12 @@ services:
       - 443:443
     volumes:
       - wp:/var/www/html
-    depends_on:
-      - wordpress
-      - mariadb
+   # depends_on:
+    #  - wordpress
+    #  - mariadb
     networks:
       - project
 
-  wordpress:
-    build: ./requirements/wordpress/.
-    restart: always
-    depends_on:
-      - mariadb
-    env_file: .env
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - project
-
-  mariadb:
-    build: ./requirements/mariadb/.
-    restart: always
-    env_file: .env
-    volumes:
-      - db:/var/lib/mysql
-    networks:
-      - project
 
 networks:
   project:

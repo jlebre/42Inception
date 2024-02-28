@@ -1,0 +1,20 @@
+
+  wordpress:
+    build: ./requirements/wordpress/.
+    restart: always
+    depends_on:
+      - mariadb
+    env_file: .env
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - project
+
+  mariadb:
+    build: ./requirements/mariadb/.
+    restart: always
+    env_file: .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - project
