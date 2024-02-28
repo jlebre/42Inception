@@ -13,4 +13,6 @@ COPY ./tools/configDB.sh /
 
 EXPOSE 3306
 
+RUN chmod +x ./configDB.sh
+
 CMD ["./configDB.sh"]
