@@ -9,7 +9,7 @@ all: up
 
 # Up docker-compose
 up: setup
-	@${DOCKER_COMPOSE} up -d --build
+	@${DOCKER_COMPOSE} up -dq --build
 
 # Down docker-compose
 down:
@@ -29,7 +29,7 @@ setup:
 	@if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then \
 		echo "127.0.0.1 ${LOGIN}.42.fr" | sudo tee -a /etc/hosts; \
 	fi
-	@if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then \
+	@if ! grep -q "www.${LOGIN}.42.fr" /etc/hosts; then \
 		echo "127.0.0.1 www.${LOGIN}.42.fr" | sudo tee -a /etc/hosts; \
 	fi
 	@sudo mkdir -p /home/${LOGIN}
