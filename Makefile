@@ -9,7 +9,7 @@ DOCKER_COMPOSE =  docker-compose -f ./srcs/docker-compose.yml
 all: up
 
 # Up docker-compose
-up: setup
+up:
 	@${DOCKER_COMPOSE} up -d --build
 
 # Down docker-compose
