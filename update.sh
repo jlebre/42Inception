@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gaa
-gcmsg "update"
-gp
+git add .
+git commit -m "update"
+git push

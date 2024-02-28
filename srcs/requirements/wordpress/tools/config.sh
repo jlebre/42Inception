@@ -24,7 +24,7 @@ else
 	echo "Error"
 fi
 
-wp core install --url=$DOMAIN_NAME/ --title=$WORDPRESS_TITLE \
+wp core install --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD \
 	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
 

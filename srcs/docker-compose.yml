@@ -1,9 +1,9 @@
-version: '3'
+version: "3.5"
 
 services:
 
   nginx:
-    build: ./requirements/nginx
+    build: ./requirements/nginx/.
     restart: always
     ports:
       - 443:443
@@ -16,7 +16,7 @@ services:
       - project
 
   wordpress:
-    build: ./requirements/wordpress
+    build: ./requirements/wordpress/.
     restart: always
     depends_on:
       - mariadb
@@ -27,7 +27,7 @@ services:
       - project
 
   mariadb:
-    build: ./requirements/mariadb
+    build: ./requirements/mariadb/.
     restart: always
     env_file: .env
     volumes:
