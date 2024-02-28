@@ -12,6 +12,7 @@ COPY ./tools/config.sh /
 # Copy php configuration
 COPY ./conf/wp-config.php /
 
+RUN chmod +x /config.sh
 
 # Default command
 CMD ["./config.sh"]
