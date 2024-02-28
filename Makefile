@@ -23,11 +23,15 @@ start:
 stop:
 	@${DOCKER_COMPOSE} stop
 
-# Add jlebre.42.fr to hosts file
+# Add ${LOGIN}.42.fr to hosts file
 # Create data directory
 setup:
-	sudo echo 127.0.0.1 jlebre.42.fr >> /etc/hosts
-	sudo echo 127.0.0.1 www.jlebre.42.fr >> /etc/hosts
+	if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then
+		@echo "127.0.0.1 ${LOGIN}.42.fr" | sudo tee -a /etc/hosts
+	fi
+	if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then
+		@echo "127.0.0.1 www.${LOGIN}.42.fr" | sudo tee -a /etc/hosts
+	fi
 	@sudo mkdir -p /home/${LOGIN}
 	@sudo mkdir -p /home/${LOGIN}/data
 	@sudo mkdir -p /home/${LOGIN}/data/wp
@@ -38,10 +42,10 @@ clean:
 	@sudo rm -rf /home/${LOGIN}/data
 
 # Remove data directory and docker volumes
-# Remove jlebre.42.fr from hosts file
+# Remove ${LOGIN}.42.fr from hosts file
 fclean: clean
-	@sudo sed -i '' '/jlebre.42.fr/d' /etc/hosts
-	@sudo sed -i '' '/www.jlebre.42.fr/d' /etc/hosts
+	@sudo sed -i '' '/${LOGIN}.42.fr/d' /etc/hosts
+	@sudo sed -i '' '/www.${LOGIN}.42.fr/d' /etc/hosts
 	docker system prune -a -f --volumes
 	docker volumes rm srcs_db_data srcs_wp_data
 
