@@ -25,10 +25,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${LOGIN}/data/wp
+      device: /home/jlebre/data/wp
   db:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${LOGIN}/data/db
+      device: /home/jlebre/data/db
