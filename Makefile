@@ -9,7 +9,7 @@ all: up
 
 # Up docker-compose
 up: setup
-	@${DOCKER_COMPOSE} up -dq --build
+	@${DOCKER_COMPOSE} up -d --build
 
 # Down docker-compose
 down:
