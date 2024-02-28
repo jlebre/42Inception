@@ -1,5 +1,7 @@
 FROM debian:buster
 
+RUN echo "teste"
+
 # Update and install php
 # Remove cache
 RUN apt-get update && apt-get install -y \

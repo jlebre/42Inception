@@ -8,12 +8,8 @@ services:
       - 443:443
     volumes:
       - wp:/var/www/html
-   # depends_on:
-    #  - wordpress
-    #  - mariadb
     networks:
       - project
-
 
 networks:
   project:
@@ -26,9 +22,3 @@ volumes:
       type: none
       o: bind
       device: /home/jlebre/data/wp
-  db:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/jlebre/data/db
