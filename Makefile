@@ -46,8 +46,13 @@ clean:
 fclean: clean
 	@sudo sed -i'' '/${LOGIN}\.42\.fr/d' /etc/hosts
 	@sudo sed -i'' '/www\.${LOGIN}\.42\.fr/d' /etc/hosts
-	docker system prune -a -f --volumes
-	docker volumes rm srcs_db_data srcs_wp_data
+	@docker system prune -a -f --volumes
+	@if docker volume inspect srcs_db_data >/dev/null 2>&1; then \
+		docker volume rm srcs_db_data; \
+	fi
+	@if docker volume inspect srcs_wp_data >/dev/null 2>&1; then \
+		docker volume rm srcs_wp_data; \
+	fi
 
 # Phony targets
 .PHONY: all, up, down, stop, start, setup, clean, fclean
