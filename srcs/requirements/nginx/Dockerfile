@@ -13,7 +13,6 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 # Copy script to generate ssl certificate and give permission
 COPY ./tools/nginx.sh /
 RUN chmod +x /nginx.sh
-#RUN chmod 755 /nginx.sh
 
 # Expose port 443
 EXPOSE 443
