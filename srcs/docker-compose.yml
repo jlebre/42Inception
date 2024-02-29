@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   nginx:
-    build: ./requirements/nginx/
+    build: ./requirements/nginx
     restart: on-failure
     ports:
       - 443:443
@@ -16,7 +16,7 @@ services:
       - project
 
   wordpress:
-    build: ./requirements/wordpress/
+    build: ./requirements/wordpress
     restart: on-failure
     depends_on:
       - mariadb
@@ -27,7 +27,7 @@ services:
       - project
 
   mariadb:
-    build: ./requirements/mariadb/
+    build: ./requirements/mariadb
     restart: on-failure
     env_file: .env
     volumes:
