@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p ~/data/
-mkdir -p /etc/nginx/ssl/
+# mkdir -p /etc/nginx/ssl/
 
 if [ $? -ne 0 ]; then
     echo "Failed to create directory /etc/nginx/ssl"

@@ -7,11 +7,11 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 # Copy mariadb configuration
-#COPY ./tools/configDB.sh /
-RUN chmod 777 tools/configDB.sh
+COPY ./tools/configDB.sh /
+RUN chmod 777 configDB.sh
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 EXPOSE 3306
 
 
-CMD ["./tools/configDB.sh"]
+CMD ["./configDB.sh"]
