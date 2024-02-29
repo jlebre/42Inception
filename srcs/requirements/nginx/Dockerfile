@@ -9,7 +9,6 @@ RUN mkdir -p /etc/nginx/conf.d/
 
 # Give permissions
 RUN chmod 644 /etc/nginx/nginx.conf
-RUN chmod 644 /etc/nginx/conf.d/nginx.conf
 
 # Copy nginx configuration
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
