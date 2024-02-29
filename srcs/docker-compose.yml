@@ -8,7 +8,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - wp:/var/www/html/
+      - wp:/var/www/html
     depends_on:
       - wordpress
       - mariadb
@@ -22,7 +22,7 @@ services:
       - mariadb
     env_file: .env
     volumes:
-      - wp:/var/www/html/
+      - wp:/var/www/html
     networks:
       - project
 
@@ -31,7 +31,7 @@ services:
     restart: on-failure
     env_file: .env
     volumes:
-      - db:/var/lib/mysql/
+      - db:/var/lib/mysql
     networks:
       - project
 
@@ -45,10 +45,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${LOGIN}/data/wp/
+      device: /home/${LOGIN}/data/wp
   db:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/${LOGIN}/data/db/
+      device: /home/${LOGIN}/data/db

@@ -1,12 +1,14 @@
 #!/bin/bash
 
+sleep 15
+
 # This script is used to configure the WordPress installation
 mkdir -p /var/www/html
 
 cd /var/www/html
 
 if [ "$(ls -A /var/www/html)" ]; then
-	rm -rf *
+	rm -rf /var/www/html/*
 fi
 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -15,7 +17,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+#mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 cp ../conf/wp-config.php /var/www/html/wp-config.php
 

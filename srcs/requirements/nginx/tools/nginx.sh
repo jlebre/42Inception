@@ -2,14 +2,6 @@
 
 mkdir -p ~/data/
 mkdir -p /etc/nginx/ssl/
-mkdir -p /etc/nginx/conf.d/
-
-# Give permissions
-chmod 644 /etc/nginx/nginx.conf
-
-# Copy nginx configuration
-cp ./conf/nginx.conf /etc/nginx/
-cp ./conf/nginx.conf /etc/nginx/conf.d/
 
 openssl genpkey -algorithm RSA -out /etc/nginx/ssl/server.key 
 openssl req -new -key /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.csr -subj "/C=PT/ST=LS/L=LS/O=42/OU=student/CN=${LOGIN}"
