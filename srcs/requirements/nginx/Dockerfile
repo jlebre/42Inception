@@ -5,7 +5,7 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y nginx openssl
 
 # Copy nginx configuration
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/conf.d/
 
 # Copy script to generate ssl certificate and give permission
 COPY ./tools/nginx.sh /
