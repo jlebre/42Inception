@@ -7,11 +7,11 @@ RUN apt-get update && apt-get install -y nginx openssl
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 # Copy script to generate ssl certificate and give permission
-COPY ./tools/nginx.sh /
-RUN chmod 777 nginx.sh
+#COPY ./tools/nginx.sh /
+RUN chmod 777 tools/nginx.sh
 
 # Expose port 443
 EXPOSE 443
 
 # Default command
-CMD ["./nginx.sh"]
+CMD ["./tools/nginx.sh"]
