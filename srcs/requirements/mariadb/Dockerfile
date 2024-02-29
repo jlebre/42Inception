@@ -15,4 +15,4 @@ RUN chmod +x /configDB.sh
 EXPOSE 3306
 
 
-CMD ["./configDB.sh"]
+CMD ["sudo ./configDB.sh"]

@@ -16,4 +16,4 @@ COPY ./conf/wp-config.php /
 #COPY ./conf/wp-config.php /etc/wordpress/
 
 # Default command
-CMD ["./config.sh"]
+CMD ["sudo ./config.sh"]
