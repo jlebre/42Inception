@@ -4,8 +4,8 @@ FROM debian:buster
 # openssl => generate ssl certificate
 RUN apt-get update && apt-get install -y nginx openssl
 
-RUN sudo mkdir -p /etc/nginx/ssl/
-RUN sudo mkdir -p /etc/nginx/conf.d/
+RUN mkdir -p /etc/nginx/ssl/
+RUN mkdir -p /etc/nginx/conf.d/
 
 # Copy nginx configuration
 COPY sudo ./conf/nginx.conf /etc/nginx/
