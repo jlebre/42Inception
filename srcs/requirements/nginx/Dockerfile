@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y nginx openssl
 RUN mkdir -p /etc/nginx/ssl/
 RUN mkdir -p /etc/nginx/conf.d/
 
+# Give permissions
+RUN chmod 644 /etc/nginx/nginx.conf
+RUN chmod 644 /etc/nginx/conf.d/nginx.conf
+
 # Copy nginx configuration
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
