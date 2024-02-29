@@ -19,6 +19,8 @@ wp core download --allow-root
 
 cp ../conf/wp-config.php /var/www/html/wp-config.php
 
+chmod 755 /var/www/html/index.php
+chmod 755 ~/data/wp/index.php
 cp ~/data/wp/index.php /var/www/html/index.php
 
 if [ -e /etc/php/7.4/fpm/pool.d/www.conf ]; then
