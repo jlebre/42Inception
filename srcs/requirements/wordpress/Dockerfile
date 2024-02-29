@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 
 # Copy wordpress configuration and give permission
 COPY ./tools/config.sh /
-RUN chmod +x /config.sh
+RUN chmod 777 /config.sh
 
 # Copy php configuration
 COPY ./conf/wp-config.php /
@@ -16,4 +16,4 @@ COPY ./conf/wp-config.php /
 #COPY ./conf/wp-config.php /etc/wordpress/
 
 # Default command
-CMD ["sudo ./config.sh"]
+CMD ["./config.sh"]
