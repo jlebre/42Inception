@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir -p ~/data/
-mkdir -p /etc/nginx/ssl/
+sudo mkdir -p ~/data/
+sudo mkdir -p /etc/nginx/ssl/
 
 openssl genpkey -algorithm RSA -out /etc/nginx/ssl/server.key 
 openssl req -new -key /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.csr -subj "/C=PT/ST=LS/L=LS/O=42/OU=student/CN=${LOGIN}"
