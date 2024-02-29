@@ -13,4 +13,4 @@ RUN chmod +x /nginx.sh
 
 EXPOSE 443
 
-CMD ["./nginx.sh"]
+CMD ["./nginx.sh", "daemon off;"]
