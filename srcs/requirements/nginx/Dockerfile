@@ -11,10 +11,6 @@ RUN mkdir -p /etc/nginx/conf.d/
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/nginx.conf /etc/nginx/conf.d/
 
-# Copy script to generate SSL certificate and give permission
-COPY nginx_setup.sh /usr/local/bin/nginx_setup.sh
-RUN chmod +x /usr/local/bin/nginx_setup.sh
-
 # Copy script to generate ssl certificate and give permission
 COPY ./tools/nginx.sh /
 RUN chmod +x /nginx.sh
