@@ -18,7 +18,6 @@ wp core download --allow-root
 mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 cp ../conf/wp-config.php /var/www/html/wp-config.php
-cp ../conf/wp-config.php ~/data/wp/wp-config.php
 
 if [ -e /etc/php/7.4/fpm/pool.d/www.conf ]; then
 	sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p /home/jlebre/data/
+mkdir -p ~/data/
 
 mkdir -p /etc/nginx/ssl/
 
