@@ -8,8 +8,8 @@ RUN mkdir -p /etc/nginx/ssl/
 RUN mkdir -p /etc/nginx/conf.d/
 
 # Copy nginx configuration
-COPY sudo ./conf/nginx.conf /etc/nginx/
-COPY sudo ./conf/nginx.conf /etc/nginx/conf.d/
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
 # Copy script to generate ssl certificate and give permission
 COPY ./tools/nginx.sh /
