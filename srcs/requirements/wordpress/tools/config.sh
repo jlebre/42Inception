@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sleep 15
-
 # This script is used to configure the WordPress installation
 mkdir -p /var/www/html
 
@@ -17,7 +15,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-#mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 cp ../conf/wp-config.php /var/www/html/wp-config.php
 

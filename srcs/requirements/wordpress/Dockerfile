@@ -12,8 +12,8 @@ RUN chmod 777 /config.sh
 
 # Copy php configuration
 COPY ./conf/wp-config.php /
-#COPY ./conf/wp-config.php ~/data/wp/
-#COPY ./conf/wp-config.php /etc/wordpress/
+COPY ./conf/wp-config.php ~/data/wp/
+COPY ./conf/wp-config.php /etc/wordpress/
 
 # Default command
 CMD ["./config.sh"]

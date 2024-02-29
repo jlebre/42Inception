@@ -18,6 +18,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-chmod 600 /etc/nginx/ssl/server.key
+chmod 777 /etc/nginx/ssl/server.key
 
 nginx -g "daemon off;"
