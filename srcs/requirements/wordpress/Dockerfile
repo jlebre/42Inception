@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y \
     php-mysql curl
 
 # Copy wordpress configuration and give permission
+RUN chmod 777 ./tools/config.sh
 COPY ./tools/config.sh /
-RUN chmod 777 /config.sh
 
 # Copy php configuration
 COPY ./conf/wp-config.php /

@@ -9,8 +9,8 @@ RUN mkdir -p /run/mysqld \
 
 # Copy mariadb configuration
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN chmod 777 ./tools/configDB.sh
 COPY ./tools/configDB.sh /
-RUN chmod 777 /configDB.sh
 
 EXPOSE 3306
 
