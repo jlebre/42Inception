@@ -1,6 +1,5 @@
 #!/bin/bash
 
-pwd 
 # This script is used to configure the WordPress installation
 sudo mkdir -p /var/www/html
 
@@ -19,9 +18,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-pwd
-
-sudo cp ../conf/wp-config.php /var/www/html/wp-config.php
+sudo cp ${ROOT_DIR}/${REP}/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
 
 sudo chmod 755 /var/www/html/index.php
 chmod 755 ${ROOT_DIR}/data/wp/index.php
