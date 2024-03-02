@@ -18,8 +18,5 @@ RUN chmod +x /config.sh
 COPY ./conf/wp-config.php ~/data/wp/wp-config.php
 COPY ./conf/wp-config.php /etc/wordpress/wp-config.php
 
-RUN chown www-data:www-data /etc/wordpress/wp-config.php \
-    && chown www-data:www-data ~/data/wp/wp-config.php
-
 # Default command
 CMD ["./config.sh"]
