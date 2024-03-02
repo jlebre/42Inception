@@ -16,16 +16,14 @@ sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cl
 sudo chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-wp core download --allow-root
+sudo wp core download --allow-root
 
 sudo cp /home/jlebre/42Inception/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
 
 sudo chmod 755 /var/www/html/index.php
-chmod 755 /home/jlebre/data/wp/index.php
-sudo cp /home/jlebre/data/wp/index.php /var/www/html/index.php
 
-if [ -e /etc/php/7.4/fpm/pool.d/www.conf ]; then
-	sudo sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
+if [ -e /etc/php/8.2/fpm/pool.d/www.conf ]; then
+	sudo sed -i 's/listen = \/run\/php\/php8.2-fpm.sock/listen = 9000/g' /etc/php/8.2/fpm/pool.d/www.conf
 else
 	echo "Error"
 fi
@@ -46,4 +44,4 @@ sudo mkdir -p /run/php
 
 wp redis enable --allow-root
 
-sudo /usr/sbin/php-fpm7.4 -F
+sudo /usr/sbin/php-fpm8.2 -F
