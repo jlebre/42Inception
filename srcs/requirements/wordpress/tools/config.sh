@@ -18,6 +18,8 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
+pwd
+
 sudo cp ../conf/wp-config.php /var/www/html/wp-config.php
 
 sudo chmod 755 /var/www/html/index.php

@@ -54,5 +54,7 @@ fclean: stop clean
 		sudo docker volume rm srcs_wp_data; \
 	fi
 
+re: fclean all
+
 # Phony targets
-.PHONY: all, up, down, stop, start, setup, clean, fclean
+.PHONY: all, up, down, stop, start, setup, clean, fclean, re
