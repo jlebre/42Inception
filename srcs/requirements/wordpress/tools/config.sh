@@ -3,6 +3,9 @@
 # This script is used to configure the WordPress installation
 mkdir -p /var/www/html
 
+chown -R www-data:www-data /var/www/html/
+chmod -R 755 /var/www/html/
+
 cd /var/www/html
 
 if [ "$(ls -A /var/www/html)" ]; then
