@@ -21,8 +21,8 @@ wp core download --allow-root
 sudo cp ../conf/wp-config.php /var/www/html/wp-config.php
 
 sudo chmod 755 /var/www/html/index.php
-chmod 755 ~/data/wp/index.php
-sudo cp ~/data/wp/index.php /var/www/html/index.php
+chmod 755 ${ROOT_DIR}/data/wp/index.php
+sudo cp ${ROOT_DIR}/data/wp/index.php /var/www/html/index.php
 
 if [ -e /etc/php/7.4/fpm/pool.d/www.conf ]; then
 	sudo sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
