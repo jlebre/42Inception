@@ -2,7 +2,7 @@
 LOGIN = jlebre
 
 # Docker-compose command
-DOCKER_COMPOSE = LOGIN=${LOGIN} docker-compose -f ./srcs/docker-compose.yml
+DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
 
 # Default target
 all: up
@@ -23,29 +23,29 @@ start:
 stop:
 	@${DOCKER_COMPOSE} stop
 
-# Add ${LOGIN}.42.fr to hosts file
+# Add jlebre.42.fr to hosts file
 # Create data directory
 setup:
-	@if ! grep -q "${LOGIN}.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 ${LOGIN}.42.fr" | sudo tee -a /etc/hosts; \
+	@if ! grep -q "jlebre.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 jlebre.42.fr" | sudo tee -a /etc/hosts; \
 	fi
-	@if ! grep -q "www.${LOGIN}.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 www.${LOGIN}.42.fr" | sudo tee -a /etc/hosts; \
+	@if ! grep -q "www.jlebre.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 www.jlebre.42.fr" | sudo tee -a /etc/hosts; \
 	fi
-	@sudo mkdir -p /home/${LOGIN}
-	@sudo mkdir -p /home/${LOGIN}/data
-	@sudo mkdir -p /home/${LOGIN}/data/wp
-	@sudo mkdir -p /home/${LOGIN}/data/db
+	@sudo mkdir -p /home/jlebre
+	@sudo mkdir -p /home/jlebre/data
+	@sudo mkdir -p /home/jlebre/data/wp
+	@sudo mkdir -p /home/jlebre/data/db
 
 # Remove data directory
 clean:
-	@sudo rm -rf /home/${LOGIN}/data
+	@sudo rm -rf /home/jlebre/data
 
 # Remove data directory and docker volumes
-# Remove ${LOGIN}.42.fr from hosts file
+# Remove jlebre.42.fr from hosts file
 fclean: stop clean
-	@sudo sed -i'' '/${LOGIN}\.42\.fr/d' /etc/hosts
-	@sudo sed -i'' '/www\.${LOGIN}\.42\.fr/d' /etc/hosts
+	@sudo sed -i'' '/jlebre\.42\.fr/d' /etc/hosts
+	@sudo sed -i'' '/www\.jlebre\.42\.fr/d' /etc/hosts
 	@sudo docker system prune -a -f --volumes
 	@if docker volume inspect srcs_db_data >/dev/null 2>&1; then \
 		sudo docker volume rm srcs_db_data; \
