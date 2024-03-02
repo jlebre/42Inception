@@ -3,8 +3,8 @@
 # This script is used to configure the WordPress installation
 mkdir -p /var/www/html
 
-chown -R www-data:www-data /var/www/html/
 chmod -R 755 /var/www/html/
+chown -R www-data:www-data /var/www/html/
 
 cd /var/www/html
 
@@ -17,8 +17,6 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
-
-#mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 cp ../conf/wp-config.php /var/www/html/wp-config.php
 
