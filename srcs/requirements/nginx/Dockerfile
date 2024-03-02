@@ -18,4 +18,4 @@ RUN chmod +x /nginx.sh
 EXPOSE 443
 
 # Default command
-CMD ["./nginx.sh"]
+CMD ["sudo", "./nginx.sh"]

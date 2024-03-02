@@ -1,31 +1,31 @@
 #!/bin/bash
 
 # This script is used to configure the WordPress installation
-mkdir -p /var/www/html
+sudo mkdir -p /var/www/html
 
-chmod -R 755 /var/www/html/
-chown -R www-data:www-data /var/www/html/
+sudo chmod -R 755 /var/www/html/
+sudo chown -R www-data:www-data /var/www/html/
 
 cd /var/www/html
 
 if [ "$(ls -A /var/www/html)" ]; then
-	rm -rf /var/www/html/*
+	sudo rm -rf /var/www/html/*
 fi
 
-curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
+sudo curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+sudo chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-cp ../conf/wp-config.php /var/www/html/wp-config.php
+sudo cp ../conf/wp-config.php /var/www/html/wp-config.php
 
-chmod 755 /var/www/html/index.php
+sudo chmod 755 /var/www/html/index.php
 chmod 755 ~/data/wp/index.php
-cp ~/data/wp/index.php /var/www/html/index.php
+sudo cp ~/data/wp/index.php /var/www/html/index.php
 
 if [ -e /etc/php/7.4/fpm/pool.d/www.conf ]; then
-	sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
+	sudo sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
 else
 	echo "Error"
 fi
@@ -42,8 +42,8 @@ wp plugin install redis-cache --activate --allow-root
 
 wp plugin update --all --allow-root
 
-mkdir -p /run/php
+sudo mkdir -p /run/php
 
 wp redis enable --allow-root
 
-/usr/sbin/php-fpm7.4 -F
+sudo /usr/sbin/php-fpm7.4 -F
