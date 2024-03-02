@@ -10,8 +10,8 @@ services:
     volumes:
       - wp:/var/www/html
     depends_on:
-      - wordpress
       - mariadb
+      - wordpress
     networks:
       - project
 

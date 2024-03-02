@@ -1,5 +1,9 @@
 FROM debian:buster
 
+RUN apt-get update && apt-get install -y \
+   --no-install-recommends apt-utils \
+   && rm -rf /var/lib/apt/lists/*
+
 # Update and install mariadb
 RUN apt-get update && apt-get install -y \
     apt-utils mariadb-server mariadb-client

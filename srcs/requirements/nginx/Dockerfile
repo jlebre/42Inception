@@ -1,5 +1,9 @@
 FROM debian:buster
 
+RUN apt-get update && apt-get install -y \
+   --no-install-recommends apt-utils \
+   && rm -rf /var/lib/apt/lists/*
+
 # Update and install nginx
 # openssl => generate ssl certificate
 RUN apt-get update && apt-get install -y nginx openssl
