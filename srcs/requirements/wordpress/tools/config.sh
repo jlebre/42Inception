@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pwd 
 # This script is used to configure the WordPress installation
 sudo mkdir -p /var/www/html
 
