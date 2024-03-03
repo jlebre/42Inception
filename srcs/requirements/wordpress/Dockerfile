@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install -y \
 
 # Update and install php
 # Remove cache
-RUN apt-get update && apt-get install -y \
-    iputils-ping php-fpm wordpress \
+RUN apt-get update && apt-get install -y php-fpm \
     php-mysql curl
 
 # Copy wordpress configuration and give permission

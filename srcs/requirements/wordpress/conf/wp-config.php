@@ -33,7 +33,7 @@ define( 'DB_PASSWORD', 'user123' );
 define( 'DB_HOST', 'mariadb' );
 
 /** O "Database Charset" a usar na criação das tabelas. */
-define( 'DB_CHARSET', 'utf8mb4' );
+define( 'DB_CHARSET', 'utf8' );
 
 /** O "Database Collate type". Se tem dúvidas não mude. */
 define( 'DB_COLLATE', '' );
