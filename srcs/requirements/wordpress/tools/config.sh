@@ -4,7 +4,7 @@
 sudo mkdir -p /var/www/html
 
 sudo chmod -R 755 /var/www/html/
-sudo chown -R www-data:www-data /var/www/html/
+#sudo chown -R www-data:www-data /var/www/html/
 
 cd /var/www/html
 
@@ -18,7 +18,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 sudo wp core download --allow-root
 
-sudo cp /home/jlebre/42Inception/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
+#sudo cp /home/jlebre/42Inception/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
 
 sudo chmod 755 /var/www/html/index.php
 
