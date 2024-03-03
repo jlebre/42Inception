@@ -6,7 +6,7 @@
 
 LOGIN = jlebre
 HOME_DIR = /home/$(LOGIN)
-ENV = LOGIN=$(LOGIN) HOME_DIR=/home/$(LOGIN)
+ENV = LOGIN=$(LOGIN) HOME_DIR=/home/$(LOGIN) --env-file $(HOME_DIR)/42Inception/srcs/.env
 #───────────────────────────────────────────────────────────────────────#
 # Change the login.                                                     #  
 #_______________________________________________________________________#
