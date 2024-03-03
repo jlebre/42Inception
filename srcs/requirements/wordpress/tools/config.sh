@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script is used to configure the WordPress installation
-sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/' "/etc/php/7.3/fpm/pool.d/www.conf";
+sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
 chown -R www-data:www-data /var/www/*;
 chown -R 755 /var/www/*;
 mkdir -p /run/php/;
@@ -18,7 +18,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	mv /var/www/wp-config.php /var/www/html/
 	wp core install --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} --admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email --allow-root
 	wp user create ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --role=author --user_pass=${WORDPRESS_PASSWORD} --allow-root
+	#wp theme install astra --activate --allow-root
 fi
-wp theme install astra --activate --allow-root
 
 exec "$@"
