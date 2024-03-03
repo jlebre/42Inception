@@ -21,4 +21,4 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 fi
 wp theme install astra --activate --allow-root
 
-exec "$"@"
+exec "$@"
