@@ -30,6 +30,13 @@ else
 	echo "Error"
 fi
 
+echo "wp core install --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
+	--admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD \
+	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
+
+wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --allow-root
+"
+
 wp core install --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD \
 	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
