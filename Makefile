@@ -19,10 +19,6 @@ down:
 start:
 	@$(DOCKER_COMPOSE) start
 
-# Stop docker-compose
-stop:
-	@$(DOCKER_COMPOSE) stop
-
 # Add jlebre.42.fr to hosts file
 # Create data directory
 setup:
@@ -41,7 +37,7 @@ clean:
 
 # Remove data directory and docker volumes
 # Remove jlebre.42.fr from hosts file
-fclean: stop clean
+fclean:clean
 	@sed -i'' '/jlebre\.42\.fr/d' /etc/hosts
 	@sed -i'' '/www\.jlebre\.42\.fr/d' /etc/hosts
 	@docker system prune -a -f --volumes
@@ -60,4 +56,4 @@ fclean: stop clean
 re: fclean all
 
 # Phony targets
-.PHONY: all, up, build, down, stop, start, setup, clean, fclean, re
+.PHONY: all, up, build, down, start, setup, clean, fclean, re
