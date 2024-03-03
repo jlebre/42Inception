@@ -12,7 +12,16 @@ FROM debian:buster
 
 RUN apt-get update && apt-get install -y php7.3 php-mysqli php-fpm wget sendmail
 #───────────────────────────────────────────────────────────────────────#
-# 
+# Update everything and install:                                        #
+# - php7.3: PHP version 7.3.                                            #
+# - php-mysqli: used to interact with MySQL databases.                  #
+# - php-fpm: PHP-FPM (FastCGI Process Manager), is an alternative       #
+#  PHP FastCGI implementation with some additional features.            #
+# - wget: used to download files from the internet.                     #
+# - sendmail: used to send emails from the container.                   #
+#                                                                       #
+# The "-y" option is used to automatically answer "yes" to prompts      #
+# that may appear during installation.                                  #
 #_______________________________________________________________________#
 
 EXPOSE 9000
@@ -23,13 +32,30 @@ EXPOSE 9000
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY ./tools /var/www
+#───────────────────────────────────────────────────────────────────────#
+# Copy configuration files and tools into the container.                #
+#_______________________________________________________________________#
 
 RUN chmod +x /var/www/config.sh
+#───────────────────────────────────────────────────────────────────────#
+# Set execute permissions for the configuration script.                 # 
+#_______________________________________________________________________#
 
 ENTRYPOINT [ "/var/www/config.sh" ]
+#───────────────────────────────────────────────────────────────────────#
+# Set the entry point for the container to the configuration script.    #
+# this script automates the setup of a WordPress installation by        #
+# configuring PHP-FPM, setting permissions, creating necessary          #
+# directories, downloading WordPress files, configuring WordPress,      #
+# and creating a WordPress user.                                        #
+#_______________________________________________________________________#
 
-# Default command
 CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
+#───────────────────────────────────────────────────────────────────────#
+# Define the default command to start PHP-FPM in non-daemon mode.       #
+# The "--nodaemonize" flag instructs PHP-FPM to run in the foreground   #
+# and make its outputs visible in the Docker container's terminal.      #
+#_______________________________________________________________________#
 
 ###################
 #                 #

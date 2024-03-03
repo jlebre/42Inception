@@ -10,8 +10,16 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-# Update and install mariadb
 RUN apt-get update && apt-get install -y mariadb-server
+#───────────────────────────────────────────────────────────────────────#
+# Update everything and install:                                        #
+# - mariadb-server: MariaDB server package, which is a popular          #
+# open-source relational database server. It provides a robust          #
+# and scalable database solution for various applications.              #
+#                                                                       #
+# The "-y" option is used to automatically answer "yes" to prompts      #
+# that may appear during installation.                                  #
+#_______________________________________________________________________#
 
 EXPOSE 3306
 #───────────────────────────────────────────────────────────────────────#
@@ -19,17 +27,28 @@ EXPOSE 3306
 # runtime. As per the subject, MariaDB should listen on port 3306.      #
 #_______________________________________________________________________#
 
-# Make directory for mariadb and change owner to mysql
-#RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
-
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+#───────────────────────────────────────────────────────────────────────#
+# Copy the MariaDB server configuration file to the appropriate         #
+# directory within the container.                                       #
+#_______________________________________________________________________#
 
-# Copy mariadb configuration
 COPY ./tools /var/www/
+#───────────────────────────────────────────────────────────────────────#
+# Copy the tools directory containing necessary files for MariaDB       #
+# setup to the appropriate directory within the container.              #
+#_______________________________________________________________________#
 
 RUN service mysql start && mysql < /var/www/DB.sql && rm -f /var/www/DB.sql;
+#───────────────────────────────────────────────────────────────────────#
+# Start the MariaDB service, import the database schema from the         #
+# DB.sql file, and then remove the DB.sql file.                         # 
+#_______________________________________________________________________#
 
 CMD ["mysqld"]
+#───────────────────────────────────────────────────────────────────────#
+# Define the default command to start the MariaDB server.               #
+#_______________________________________________________________________#
 
 ###################
 #                 #
