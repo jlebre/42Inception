@@ -15,8 +15,8 @@ COPY ./tools/config.sh /
 RUN chmod +x /config.sh
 
 # Copy php configuration
-#COPY ./conf/wp-config.php /home/jlebre/data/wp/wp-config.php
-#COPY ./conf/wp-config.php /etc/wordpress/wp-config.php
+COPY ./conf/wp-config.php /home/jlebre/data/wp/wp-config.php
+COPY ./conf/wp-config.php /etc/wordpress/wp-config.php
 
 # Default command
 CMD ["./config.sh"]

@@ -20,7 +20,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 sudo wp core download --allow-root
 
-#sudo cp /home/jlebre/42Inception/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
+sudo cp /home/jlebre/42Inception/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
 
 sudo chmod 755 /var/www/html/index.php
 
