@@ -1,45 +1,54 @@
-# Docker-compose command
-DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
+###################
+#                 #
+#    MAKEFILE     #
+#                 #
+###################
 
-# Default target
-all: up
+LOGIN = jlebre
+#───────────────────────────────────────────────────────────────────────#
+# Change the login.                                                     #  
+#_______________________________________________________________________#
 
-# Up docker-compose
-up: setup
+DOCKER_COMPOSE = LOGIN=$(LOGIN) docker-compose -f ./srcs/docker-compose.yml
+#───────────────────────────────────────────────────────────────────────#
+# docker-compose is used to define and run Docker containers.           #
+# "-f ./srcs/docker-compose.yml" provides the path to the YAML file.    #
+#_______________________________________________________________________#
+
+
+all: setup
 	@$(DOCKER_COMPOSE) up
+#───────────────────────────────────────────────────────────────────────#
+# The "up" target is responsible for bringing up the Docker containers. #
+# Instructs Docker Compose to create and start containers for           #
+# all services defined in the docker-compose.yml file                   #
+#_______________________________________________________________________#
 
-build:
-	@$(DOCKER_COMPOSE) up -d --build
-
-# Down docker-compose
-down:
-	@$(DOCKER_COMPOSE) down
-
-# Start docker-compose
-start:
-	@$(DOCKER_COMPOSE) start
-
-# Add jlebre.42.fr to hosts file
-# Create data directory
 setup:
-	@if ! grep -q "jlebre.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 jlebre.42.fr" | tee -a /etc/hosts; \
+	@if ! grep -q "$(LOGIN).42.fr" /etc/hosts; then \
+		echo "127.0.0.1 $(LOGIN).42.fr" | tee -a /etc/hosts; \
 	fi
-	@if ! grep -q "www.jlebre.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 www.jlebre.42.fr" | tee -a /etc/hosts; \
+	@if ! grep -q "www.$(LOGIN).42.fr" /etc/hosts; then \
+		echo "127.0.0.1 www.$(LOGIN).42.fr" | tee -a /etc/hosts; \
 	fi
-	@mkdir -p /home/jlebre/data/wp
-	@mkdir -p /home/jlebre/data/db
+	@mkdir -p /home/$(LOGIN)/data/wp
+	@mkdir -p /home/$(LOGIN)/data/db
+#───────────────────────────────────────────────────────────────────────#
+# Checks whether login.42.fr already exists, if it does not exist       #
+# adds login.42.fr and www.login.42.fr to hosts file.                   #
+# 127.0.0.1 maps the hostname to the local machine.                     #
+# "tee" reads from the stdin and writes to both stdout and one or       #
+# more files. "-a" is used to append the output to the specified file.  #
+#                                                                       #
+# Create data directory (were the volumes will be available)            #
+# "db" is a volume that contains Wordpress database.                    #
+# "wp" is a volume that contains Wordpress website files.               #
+#_______________________________________________________________________#
 
-# Remove data directory
-clean:
-	@rm -rf /home/jlebre/data
-
-# Remove data directory and docker volumes
-# Remove jlebre.42.fr from hosts file
-fclean:clean
-	@sed -i'' '/jlebre\.42\.fr/d' /etc/hosts
-	@sed -i'' '/www\.jlebre\.42\.fr/d' /etc/hosts
+fclean:
+	@rm -rf /home/$(LOGIN)/data
+	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
+	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
 	@docker system prune -a -f --volumes
 	@if docker volume inspect srcs_db_data >/dev/null 2>&1; then \
 		docker volume rm srcs_db_data; \
@@ -52,8 +61,23 @@ fclean:clean
 	docker rmi -f $$(docker images -qa); \
 	docker volume rm $$(docker volume ls -q); \
 	docker network rm $$(docker network ls -q)
+#───────────────────────────────────────────────────────────────────────#
+# Remove "data" directory and docker volumes inside.                    #
+# Remove login.42.fr from hosts file.                                   #
+#_______________________________________________________________________#
 
 re: fclean all
+#───────────────────────────────────────────────────────────────────────#
+# Restart. Clean everything and re-build.                               #
+#_______________________________________________________________________#
 
-# Phony targets
-.PHONY: all, up, build, down, start, setup, clean, fclean, re
+.PHONY: all, setup, fclean, re
+#───────────────────────────────────────────────────────────────────────#
+# Phony targets.                                                        #
+#_______________________________________________________________________#
+
+###################
+#                 #
+#     jlebre      #
+#                 #
+###################
