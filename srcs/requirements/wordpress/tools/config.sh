@@ -1,46 +1,32 @@
 #!/bin/bash
 
 # This script is used to configure the WordPress installation
-mkdir -p /var/www/html
+sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
+chown -R www-data:www-data /var/www/*;
+chown -R 755 /var/www/*;
+mkdir -p /run/php/;
+touch /run/php/php.7.3-fpm.pid;
 
-chmod -R 755 /var/www/html/
-#chown -R www-data:www-data /var/www/html/
-
-cd /var/www/html
-
-if [ "$(ls -A /var/www/html)" ]; then
-	rm -rf /var/www/html/*
+# If wp-config.php does not exist, creates it
+if [ ! -f /var/www/html/wp-config.php ]; then
+	mkdir -p /var/www/html
+	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
+	chmod +x wp-cli.phar;
+	yes | mv wp-cli.phar /usr/local/bin/wp;
+	cd /var/www/html;
+	wp core download --allow-root;
+	mv /var/www/wp-config.php /var/www/html/
+	wp core install --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} --admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email --allow-root
+	wp user create ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --role=author --user_pass=${WORDPRESS_PASSWORD} --allow-root
 fi
+#wp theme install astra --activate --allow-root
 
-curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
-chmod -R 755 /usr/local/bin/wp
-yes | mv wp-cli.phar /usr/local/bin/wp
+#wp plugin install redis-cache --activate --allow-root
 
-wp core download --allow-root
+#wp plugin update --all --allow-root
 
-cp /home/jlebre/42Inception/srcs/requirements/wordpress/conf/wp-config.php /var/www/html/wp-config.php
+#mkdir -p /run/php
 
-chmod 755 /var/www/html/index.php
+#wp redis enable --allow-root
 
-if [ -e /etc/php/8.2/fpm/pool.d/www.conf ]; then
-	sed -i 's/listen = \/run\/php\/php8.2-fpm.sock/listen = 9000/g' /etc/php/8.2/fpm/pool.d/www.conf
-else
-	echo "Error"
-fi
-
-wp core install --url=$DOMAIN/ --title=$WORDPRESS_TITLE --admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
-
-wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --allow-root
-
-wp theme install astra --activate --allow-root
-
-wp plugin install redis-cache --activate --allow-root
-
-wp plugin update --all --allow-root
-
-mkdir -p /run/php
-
-wp redis enable --allow-root
-
-/usr/sbin/php-fpm8.2 -F
+exec "$"@"

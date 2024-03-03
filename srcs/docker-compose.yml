@@ -1,54 +1,60 @@
 version: "3.8"
 
-services:
-
-  nginx:
-    build: ./requirements/nginx
-    restart: always
-    ports:
-      - 443:443
-    volumes:
-      - wp:/var/www/html
-    depends_on:
-      - mariadb
-      - wordpress
-    networks:
-      - project
-
-  wordpress:
-    build: ./requirements/wordpress
-    restart: always
-    depends_on:
-      - mariadb
-    env_file: .env
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - project
-
-  mariadb:
-    build: ./requirements/mariadb
-    restart: always
-    env_file: .env
-    volumes:
-      - db:/var/lib/mysql
-    networks:
-      - project
-
 networks:
   project:
+    name: project
     driver: bridge
 
 volumes:
   wp:
     driver: local
+    name: wp
     driver_opts:
       type: none
       o: bind
       device: /home/jlebre/data/wp
   db:
     driver: local
+    name: db
     driver_opts:
       type: none
       o: bind
       device: /home/jlebre/data/db
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - project
+    restart: unless-stopped
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - project
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - project
+    restart: unless-stopped

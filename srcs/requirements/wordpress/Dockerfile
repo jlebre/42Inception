@@ -1,21 +1,18 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get install -y \
-   --no-install-recommends apt-utils \
-   && rm -rf /var/lib/apt/lists/*
-
 # Update and install php
 # Remove cache
-RUN apt-get update && apt-get install -y php-fpm \
-    php-mysql curl
+RUN apt-get update && apt-get install -y \
+    php7.3 php-mysqli php-fpm wget sendmail
 
-# Copy wordpress configuration and give permission
-COPY ./tools/config.sh /
-RUN chmod +x /config.sh
+EXPOSE 9000
 
-# Copy php configuration
-COPY ./conf/wp-config.php /home/jlebre/data/wp/wp-config.php
-COPY ./conf/wp-config.php /etc/wordpress/wp-config.php
+COPY .conf/www.conf /etc/php/7.3/fpm/pool.data
+COPY ./tools /var/www
+
+RUN chmod +x /var/www/config.sh
+
+ENTRYPOINT [ "/var/www/config.sh" ]
 
 # Default command
-CMD ["./config.sh"]
+CMD ["/user/sbin/php-fpm7.3", "--nodaemonize"]
