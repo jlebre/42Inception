@@ -38,8 +38,6 @@ define( 'DB_CHARSET', 'utf8' );
 /** O "Database Collate type". Se tem dúvidas não mude. */
 define( 'DB_COLLATE', '' );
 
-define( 'WP_ALLOW_REPAIR', true );
-
 /**#@+
  * Chaves únicas de autenticação.
  *
@@ -86,7 +84,7 @@ define( 'WP_DEBUG', false );
 
 /** Caminho absoluto para a pasta do WordPress. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+	define( 'ABSPATH', '/var/www/html/wordpress' );
 }
 
 /** Define as variáveis do WordPress e ficheiros a incluir. */
