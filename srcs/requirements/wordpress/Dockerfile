@@ -14,4 +14,4 @@ RUN chmod +x /var/www/config.sh
 ENTRYPOINT [ "/var/www/config.sh" ]
 
 # Default command
-CMD ["/user/sbin/php-fpm7.3", "--nodaemonize"]
+CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
