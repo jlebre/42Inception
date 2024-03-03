@@ -15,7 +15,6 @@ DOCKER_COMPOSE = LOGIN=$(LOGIN) docker-compose -f ./srcs/docker-compose.yml
 # "-f ./srcs/docker-compose.yml" provides the path to the YAML file.    #
 #_______________________________________________________________________#
 
-
 all: setup
 	@$(DOCKER_COMPOSE) up
 #───────────────────────────────────────────────────────────────────────#
@@ -36,7 +35,9 @@ setup:
 #───────────────────────────────────────────────────────────────────────#
 # Checks whether login.42.fr already exists, if it does not exist       #
 # adds login.42.fr and www.login.42.fr to hosts file.                   #
-# 127.0.0.1 maps the hostname to the local machine.                     #
+# 127.0.0.1 maps the hostname to the local machine itself.              #
+# Used to simulate the behavior of a server without actually accessing  #
+# external network resources.                                           #
 # "tee" reads from the stdin and writes to both stdout and one or       #
 # more files. "-a" is used to append the output to the specified file.  #
 #                                                                       #
@@ -50,20 +51,14 @@ fclean:
 	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
 	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
 	@docker system prune -a -f --volumes
-	@if docker volume inspect srcs_db_data >/dev/null 2>&1; then \
-		docker volume rm srcs_db_data; \
-	fi
-	@if docker volume inspect srcs_wp_data >/dev/null 2>&1; then \
-		docker volume rm srcs_wp_data; \
-	fi
-	@docker stop $$(docker ps -qa); \
-	docker rm $$(docker ps -qa); \
-	docker rmi -f $$(docker images -qa); \
-	docker volume rm $$(docker volume ls -q); \
-	docker network rm $$(docker network ls -q)
 #───────────────────────────────────────────────────────────────────────#
 # Remove "data" directory and docker volumes inside.                    #
 # Remove login.42.fr from hosts file.                                   #
+#                                                                       #
+# "docker system prune" cleans up Docker resources that are not         #
+# being used. "-a" means all and "-f" forces the operation without      # 
+# requiring user confirmation.                                          #
+# "--volumes" includes volumes in the cleaning process                  #
 #_______________________________________________________________________#
 
 re: fclean all
