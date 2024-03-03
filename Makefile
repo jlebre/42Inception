@@ -5,11 +5,13 @@
 ###################
 
 LOGIN = jlebre
+HOME_DIR = /home/$(LOGIN)
+ENV = LOGIN=$(LOGIN) HOME_DIR=/home/$(LOGIN)
 #───────────────────────────────────────────────────────────────────────#
 # Change the login.                                                     #  
 #_______________________________________________________________________#
 
-DOCKER_COMPOSE = LOGIN=$(LOGIN) docker-compose -f ./srcs/docker-compose.yml
+DOCKER_COMPOSE = $(ENV) docker-compose -f ./srcs/docker-compose.yml
 #───────────────────────────────────────────────────────────────────────#
 # docker-compose is used to define and run Docker containers.           #
 # "-f ./srcs/docker-compose.yml" provides the path to the YAML file.    #
