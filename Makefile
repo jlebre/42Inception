@@ -48,6 +48,15 @@ setup:
 # "wp" is a volume that contains Wordpress website files.               #
 #_______________________________________________________________________#
 
+clean:
+	@docker stop $$(docker ps -qa);\
+	docker rm $$(docker ps -qa);\
+	docker rmi -f $$(docker images -qa);\
+	docker volume rm $$(docker volume ls -q);\
+	docker network rm $$(docker network ls -q);\
+	rm -rf $(HOME)/data/wordpress
+	rm -rf $(HOME)/data/mariadb
+
 fclean:
 	@rm -rf /home/$(LOGIN)/data
 	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
@@ -68,7 +77,7 @@ re: fclean all
 # Restart. Clean everything and re-build.                               #
 #_______________________________________________________________________#
 
-.PHONY: all, setup, fclean, re
+.PHONY: all, setup, clean, fclean, re
 #───────────────────────────────────────────────────────────────────────#
 # Phony targets.                                                        #
 #_______________________________________________________________________#
