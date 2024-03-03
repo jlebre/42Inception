@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export TERM=xterm
+
 # Start the MariaDB service
 sudo service mariadb start
 

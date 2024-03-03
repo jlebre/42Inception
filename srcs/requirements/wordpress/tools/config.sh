@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sleep 15
-
 # This script is used to configure the WordPress installation
 sudo mkdir -p /var/www/html
 
@@ -29,13 +27,10 @@ if [ -e /etc/php/8.2/fpm/pool.d/www.conf ]; then
 else
 	echo "Error"
 fi
-
+echo TESTEEEEEE
 echo "wp core install --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD \
-	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root
-
-wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --allow-root
-"
+	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email --allow-root"
 
 wp core install --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$MYSQL_USER --admin_password=$MYSQL_PASSWORD \
