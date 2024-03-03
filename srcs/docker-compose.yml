@@ -27,14 +27,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${HOME_DIR}/data/wp
+      device: home/jlebre/data/wp
   db:
     driver: local
     name: db
     driver_opts:
       type: none
       o: bind
-      device: ${HOME_DIR}/data/db
+      device: home/jlebre/data/db
 #───────────────────────────────────────────────────────────────────────#
 # Defines two volumes 'wp' and 'db' for persisting data.                #
 # "db" is a volume that contains Wordpress database.                    #

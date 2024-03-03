@@ -4,13 +4,6 @@
 #                 #
 ###################
 
-LOGIN = jlebre
-HOME_DIR = /home/$(LOGIN)
-ENV = LOGIN=$(LOGIN) HOME_DIR=/home/$(LOGIN)
-#───────────────────────────────────────────────────────────────────────#
-# Change the login.                                                     #  
-#_______________________________________________________________________#
-
 DOCKER_COMPOSE = $(ENV) docker-compose -f ./srcs/docker-compose.yml
 #───────────────────────────────────────────────────────────────────────#
 # docker-compose is used to define and run Docker containers.           #
@@ -26,14 +19,14 @@ all: setup
 #_______________________________________________________________________#
 
 setup:
-	@if ! grep -q "$(LOGIN).42.fr" /etc/hosts; then \
-		echo "127.0.0.1 $(LOGIN).42.fr" | tee -a /etc/hosts; \
+	@if ! grep -q "jlebre.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 jlebre.42.fr" | tee -a /etc/hosts; \
 	fi
-	@if ! grep -q "www.$(LOGIN).42.fr" /etc/hosts; then \
-		echo "127.0.0.1 www.$(LOGIN).42.fr" | tee -a /etc/hosts; \
+	@if ! grep -q "www.jlebre.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 www.jlebre.42.fr" | tee -a /etc/hosts; \
 	fi
-	@mkdir -p /home/$(LOGIN)/data/wp
-	@mkdir -p /home/$(LOGIN)/data/db
+	@mkdir -p /home/jlebre/data/wp
+	@mkdir -p /home/jlebre/data/db
 #───────────────────────────────────────────────────────────────────────#
 # Checks whether login.42.fr already exists, if it does not exist       #
 # adds login.42.fr and www.login.42.fr to hosts file.                   #
@@ -58,9 +51,9 @@ clean:
 	rm -rf $(HOME)/data/mariadb
 
 fclean:
-	@rm -rf /home/$(LOGIN)/data
-	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
-	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
+	@rm -rf /home/jlebre/data
+	@sed -i'' '/jlebre\.42\.fr/d' /etc/hosts
+	@sed -i'' '/www\.jlebre\.42\.fr/d' /etc/hosts
 	@docker system prune -a -f --volumes
 #───────────────────────────────────────────────────────────────────────#
 # Remove "data" directory and docker volumes inside.                    #
