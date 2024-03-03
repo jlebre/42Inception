@@ -23,31 +23,14 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
 	chmod +x wp-cli.phar;
 	mv wp-cli.phar /usr/local/bin/wp;
-#───────────────────────────────────────────────────────────────────────#
-#
-#_______________________________________________________________________#
-
 	cd /var/www/html;
 	wp core download --allow-root;
 	mv /var/www/wp-config.php /var/www/html/
-#───────────────────────────────────────────────────────────────────────#
-#
-#_______________________________________________________________________#
-	
 	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} --admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
 	wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
-#───────────────────────────────────────────────────────────────────────#
-#
-#_______________________________________________________________________#
 fi
 
 exec "$@"
 #───────────────────────────────────────────────────────────────────────#
 #
 #_______________________________________________________________________#
-
-###################
-#                 #
-#     jlebre      #
-#                 #
-###################
