@@ -48,7 +48,9 @@ setup:
 #_______________________________________________________________________#
 
 fclean:
-	@docker stop $$(docker ps -qa); \
+	@if [ -n "$$(docker ps -q)" ]; then \
+		$(DOCKER_COMPOSE) down; \
+	fi
 	@docker rm $$(docker ps -qa); \
 	@docker rmi -f $$(docker images -qa); \
 	@docker volume rm $$(docker volume ls -q); \
