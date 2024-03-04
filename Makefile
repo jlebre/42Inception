@@ -4,12 +4,6 @@
 #                 #
 ###################
 
-LOGIN = jlebre
-ENV = LOGIN=$(LOGIN)
-#───────────────────────────────────────────────────────────────────────#
-# Change the login.                                                     #  
-#_______________________________________________________________________#
-
 DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
 #───────────────────────────────────────────────────────────────────────#
 # docker-compose is used to define and run Docker containers.           #
@@ -17,7 +11,7 @@ DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
 #_______________________________________________________________________#
 
 all: setup
-	@$(ENV) $(DOCKER_COMPOSE) up --build
+	@$(DOCKER_COMPOSE) up --build
 #───────────────────────────────────────────────────────────────────────#
 # The "up" target is responsible for bringing up the Docker containers. #
 # Instructs Docker Compose to create and start containers for           #
@@ -25,14 +19,14 @@ all: setup
 #_______________________________________________________________________#
 
 setup:
-	@if ! grep -q "$(LOGIN).42.fr" /etc/hosts; then \
-		echo "127.0.0.1 $(LOGIN).42.fr" | tee -a /etc/hosts; \
+	@if ! grep -q "jlebre.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 jlebre.42.fr" | tee -a /etc/hosts; \
 	fi; \
-	if ! grep -q "www.$(LOGIN).42.fr" /etc/hosts; then \
-		echo "127.0.0.1 www.$(LOGIN).42.fr" | tee -a /etc/hosts; \
+	if ! grep -q "www.jlebre.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 www.jlebre.42.fr" | tee -a /etc/hosts; \
 	fi; \
-	mkdir -p /home/$(LOGIN)/data/wp; \
-	mkdir -p /home/$(LOGIN)/data/db
+	mkdir -p /home/jlebre/data/wp; \
+	mkdir -p /home/jlebre/data/db
 #───────────────────────────────────────────────────────────────────────#
 # Checks whether login.42.fr already exists, if it does not exist       #
 # adds login.42.fr and www.login.42.fr to hosts file.                   #
@@ -55,9 +49,9 @@ fclean:
 	docker rmi -f $$(docker images -qa); \
 	docker volume rm $$(docker volume ls -q); \
 	docker network rm $$(docker network ls -q) 2>/dev/null; \
-	rm -rf /home/$(LOGIN)/data; \
-	sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts; \
-	sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
+	rm -rf /home/jlebre/data; \
+	sed -i'' '/jlebre\.42\.fr/d' /etc/hosts; \
+	sed -i'' '/www\.jlebre\.42\.fr/d' /etc/hosts
 #───────────────────────────────────────────────────────────────────────#
 # Remove "data" directory and docker volumes inside.                    #
 # Remove login.42.fr from hosts file.                                   #
