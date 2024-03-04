@@ -10,14 +10,14 @@ ENV = LOGIN=$(LOGIN)
 # Change the login.                                                     #  
 #_______________________________________________________________________#
 
-DOCKER_COMPOSE = $(ENV) docker-compose -f ./srcs/docker-compose.yml
+DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
 #───────────────────────────────────────────────────────────────────────#
 # docker-compose is used to define and run Docker containers.           #
 # "-f ./srcs/docker-compose.yml" provides the path to the YAML file.    #
 #_______________________________________________________________________#
 
 all: setup
-	@$(DOCKER_COMPOSE) up --build
+	@$(ENV) $(DOCKER_COMPOSE) up --build
 #───────────────────────────────────────────────────────────────────────#
 # The "up" target is responsible for bringing up the Docker containers. #
 # Instructs Docker Compose to create and start containers for           #
