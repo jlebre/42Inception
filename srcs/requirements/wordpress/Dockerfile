@@ -31,26 +31,16 @@ EXPOSE 9000
 #_______________________________________________________________________#
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-COPY ./tools /var/www
+COPY ./tools/config.sh /
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
 
-RUN chmod +x /var/www/config.sh
 #───────────────────────────────────────────────────────────────────────#
 # Set execute permissions for the configuration script.                 # 
 #_______________________________________________________________________#
 
-ENTRYPOINT [ "/var/www/config.sh" ]
-#───────────────────────────────────────────────────────────────────────#
-# Set the entry point for the container to the configuration script.    #
-# this script automates the setup of a WordPress installation by        #
-# configuring PHP-FPM, setting permissions, creating necessary          #
-# directories, downloading WordPress files, configuring WordPress,      #
-# and creating a WordPress user.                                        #
-#_______________________________________________________________________#
-
-CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
+CMD [ "/config.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start PHP-FPM in non-daemon mode.       #
 # The "--nodaemonize" flag instructs PHP-FPM to run in the foreground   #

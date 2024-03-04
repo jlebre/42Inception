@@ -33,22 +33,13 @@ COPY ./conf/default /etc/nginx/sites-enabled/default
 # directory within the container.                                       #
 #_______________________________________________________________________#
 
-COPY ./tools/nginx.sh /var/www
-RUN chmod +x /var/www/nginx.sh
+COPY ./tools/nginx.sh /
 #───────────────────────────────────────────────────────────────────────#
 # Copy the NGINX startup script to the appropriate directory within     #
 # the container and set execute permissions for it.                     #
 #_______________________________________________________________________#
 
-ENTRYPOINT [ "/var/www/nginx.sh" ]
-#───────────────────────────────────────────────────────────────────────#
-# Set the entry point for the container to the NGINX startup script.    #
-# This script checks if an SSL certificate exists.                      #
-# If it does not exist, it generates a new self-signed SSL certificate  # 
-# with a private key using OpenSSL.                                     #
-#_______________________________________________________________________#
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "/nginx.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start NGINX in foreground mode.         #
 #_______________________________________________________________________#
