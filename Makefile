@@ -27,12 +27,12 @@ all: setup
 setup:
 	@if ! grep -q "$(LOGIN).42.fr" /etc/hosts; then \
 		echo "127.0.0.1 $(LOGIN).42.fr" | tee -a /etc/hosts; \
-	fi
-	@if ! grep -q "www.$(LOGIN).42.fr" /etc/hosts; then \
+	fi; \
+	if ! grep -q "www.$(LOGIN).42.fr" /etc/hosts; then \
 		echo "127.0.0.1 www.$(LOGIN).42.fr" | tee -a /etc/hosts; \
-	fi
-	@mkdir -p /home/$(LOGIN)/data/wp
-	@mkdir -p /home/$(LOGIN)/data/db
+	fi; \
+	mkdir -p /home/$(LOGIN)/data/wp; \
+	mkdir -p /home/$(LOGIN)/data/db
 #───────────────────────────────────────────────────────────────────────#
 # Checks whether login.42.fr already exists, if it does not exist       #
 # adds login.42.fr and www.login.42.fr to hosts file.                   #
@@ -50,14 +50,14 @@ setup:
 fclean:
 	@if [ -n "$$(docker ps -q)" ]; then \
 		$(DOCKER_COMPOSE) down; \
-	fi
-	@docker rm $$(docker ps -qa); \
-	@docker rmi -f $$(docker images -qa); \
-	@docker volume rm $$(docker volume ls -q); \
-	@docker network rm $$(docker network ls -q) 2>/dev/null; 
-	@rm -rf /home/$(LOGIN)/data
-	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
-	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
+	fi; \
+	docker rm $$(docker ps -qa); \
+	docker rmi -f $$(docker images -qa); \
+	docker volume rm $$(docker volume ls -q); \
+	docker network rm $$(docker network ls -q) 2>/dev/null; \
+	rm -rf /home/$(LOGIN)/data; \
+	sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts; \
+	sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
 #───────────────────────────────────────────────────────────────────────#
 # Remove "data" directory and docker volumes inside.                    #
 # Remove login.42.fr from hosts file.                                   #
