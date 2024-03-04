@@ -32,6 +32,7 @@ EXPOSE 9000
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY ./tools/config.sh /
+COPY ./tools/wp-config.php /
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#

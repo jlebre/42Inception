@@ -19,7 +19,7 @@ all: setup
 #_______________________________________________________________________#
 
 setup:
-	mkdir -p /home/jlebre/data/wp; \
+	@mkdir -p /home/jlebre/data/wp; \
 	mkdir -p /home/jlebre/data/db
 #───────────────────────────────────────────────────────────────────────#
 # Checks whether login.42.fr already exists, if it does not exist       #
