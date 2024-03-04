@@ -41,8 +41,12 @@ COPY ./tools /var/www/
 
 RUN service mysql start && mysql < /var/www/DB.sql && rm -f /var/www/DB.sql;
 #───────────────────────────────────────────────────────────────────────#
-# Start the MariaDB service, import the database schema from the         #
-# DB.sql file, and then remove the DB.sql file.                         # 
+# Start the MariaDB service, import the database schema from the        #
+# DB.sql file, and then remove the DB.sql file.                         #
+#                                                                       #
+# The DB.sql checks whether it exists a database called "wordpress",    #
+# if it does not exist, creates one. The same applies to user.          #
+# Then grants all privileges to that user. That user is Admin.          # 
 #_______________________________________________________________________#
 
 CMD ["mysqld"]
