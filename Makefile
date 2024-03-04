@@ -17,7 +17,7 @@ DOCKER_COMPOSE = $(ENV) docker-compose -f ./srcs/docker-compose.yml
 #_______________________________________________________________________#
 
 all: setup
-	@$(DOCKER_COMPOSE) up
+	@$(DOCKER_COMPOSE) up --build
 #───────────────────────────────────────────────────────────────────────#
 # The "up" target is responsible for bringing up the Docker containers. #
 # Instructs Docker Compose to create and start containers for           #
