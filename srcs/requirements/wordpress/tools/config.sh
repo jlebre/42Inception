@@ -32,6 +32,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	mv /var/www/wp-config.php /var/www/html/
 	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} --admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
 	wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
+	wp theme install --allow-root twentytwentytwo --activate;
 fi
 #───────────────────────────────────────────────────────────────────────#
 # If wp-config.php does not exist, download WordPress CLI,              #
