@@ -48,17 +48,17 @@ setup:
 #_______________________________________________________________________#
 
 fclean:
-	@if [ -n "$$(docker ps -q)" ]; then \
+	@if -n "$$(docker ps -q)"; then \
 		docker stop $$(docker ps -qa); \
 		docker rm $$(docker ps -qa); \
 	fi
-	@if [ -n "$$(docker images -q)" ]; then \
+	@if -n "$$(docker images -q)"; then \
 		docker rmi -f $$(docker images -qa); \
 	fi
-	@if [ -n "$$(docker volume ls -q)" ]; then \
+	@if -n "$$(docker volume ls -q)"; then \
 		docker volume rm $$(docker volume ls -q); \
 	fi
-	@if [ -n "$$(docker network ls -q)" ]; then \
+	@if -n "$$(docker network ls -q)"; then \
 		docker network rm $$(docker network ls -q) 2>/dev/null; \
 	fi
 	@rm -rf /home/$(LOGIN)/data
