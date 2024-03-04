@@ -6,11 +6,11 @@ sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm
 # instead of a Unix socket.                                             #
 #_______________________________________________________________________#
 
-sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /var/www/wp-config.php
-sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /var/www/wp-config.php
-sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /var/www/wp-config.php
-sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /var/www/wp-config.php
-sed -i "s/___HOSTNAME___/$HOSTNAME/g" /var/www/wp-config.php
+sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /var/www/wp-config.php;
+sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /var/www/wp-config.php;
+sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /var/www/wp-config.php;
+sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /var/www/wp-config.php;
+sed -i "s/___HOSTNAME___/$HOSTNAME/g" /var/www/wp-config.php;
 
 chown -R www-data:www-data /var/www/*;
 chown -R 755 /var/www/*;
