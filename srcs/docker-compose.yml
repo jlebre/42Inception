@@ -51,7 +51,7 @@ services:
       - db:/var/lib/mysql
     networks:
       - project
-    restart: always
+    restart: on-failure
 #───────────────────────────────────────────────────────────────────────#
 # MariaDB is a popular open-source relational database management       #
 # system. In this context, it's a Docker service that provides          #
@@ -69,7 +69,7 @@ services:
       - wp:/var/www/html
     networks:
       - project
-    restart: always
+    restart: on-failure
 #───────────────────────────────────────────────────────────────────────#
 # WordPress is a popular open-source content management system. In this #
 # context, it's a Docker service representing a WordPress website.      #
@@ -86,7 +86,7 @@ services:
       - wp:/var/www/html
     networks:
       - project
-    restart: always
+    restart: on-failure
 #───────────────────────────────────────────────────────────────────────#
 # Nginx is a popular open-source web server and reverse proxy server. In#
 # this context, it's a Docker service representing an Nginx server that #
