@@ -43,7 +43,7 @@ COPY ./tools /var/www/
 
 RUN chmod +x /var/www/setup.sh;
 
-ENTRYPOINT [ "/var/www//setup.sh" ]
+ENTRYPOINT [ "/var/www/setup.sh" ]
 
 RUN service mysql start && mysql < /var/www/DB.sql && rm -f /var/www/DB.sql;
 #───────────────────────────────────────────────────────────────────────#

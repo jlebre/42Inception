@@ -1,7 +1,7 @@
+sed -i "s/\${DATABASE_NAME}/$DATABASE_NAME/g" DB.sql
 sed -i "s/\${MYSQL_USER}/$MYSQL_USER/g" DB.sql
 sed -i "s/\${MYSQL_PASSWORD}/$MYSQL_PASSWORD/g" DB.sql
 sed -i "s/\${MYSQL_ROOT_PASSWORD}/$MYSQL_ROOT_PASSWORD/g" DB.sql
-sed -i "s/\${DATABASE_NAME}/$DATABASE_NAME/g" DB.sql
 
 exec "$@"
 #───────────────────────────────────────────────────────────────────────#
