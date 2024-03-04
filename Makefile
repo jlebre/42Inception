@@ -47,28 +47,21 @@ setup:
 # "wp" is a volume that contains Wordpress website files.               #
 #_______________________________________________________________________#
 
-clean:
-	@docker stop $$(docker ps -qa);\
-	docker rm $$(docker ps -qa);\
-	docker rmi -f $$(docker images -qa);\
-	docker volume rm $$(docker volume ls -q);\
-	docker network rm $$(docker network ls -q);\
+fclean:
+	@docker stop $$(docker ps -qa); \
+	docker rm $$(docker ps -qa); \
+	docker rmi -f $$(docker images -qa); \
+	docker volume rm $$(docker volume ls -q); \
+	docker network rm $$(docker network ls -q); \
+	docker network rm $$(docker network ls -q) 2>/dev/null;
 	rm -rf $(HOME)/data/wordpress
 	rm -rf $(HOME)/data/mariadb
-
-fclean:
 	@rm -rf /home/$(LOGIN)/data
 	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
 	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
-	@docker system prune -a -f --volumes
 #───────────────────────────────────────────────────────────────────────#
 # Remove "data" directory and docker volumes inside.                    #
 # Remove login.42.fr from hosts file.                                   #
-#                                                                       #
-# "docker system prune" cleans up Docker resources that are not         #
-# being used. "-a" means all and "-f" forces the operation without      # 
-# requiring user confirmation.                                          #
-# "--volumes" includes volumes in the cleaning process                  #
 #_______________________________________________________________________#
 
 re: fclean all
