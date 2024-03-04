@@ -48,21 +48,21 @@ setup:
 #_______________________________________________________________________#
 
 fclean:
-	if [ -n "$$(docker ps -q)" ]; then \
+	@if [ -n "$$(docker ps -q)" ]; then \
 		docker stop $$(docker ps -qa); \
 		docker rm $$(docker ps -qa); \
 	fi
-	if [ -n "$$(docker images -q)" ]; then \
+	@if [ -n "$$(docker images -q)" ]; then \
 		docker rmi -f $$(docker images -qa); \
 	fi
-	if [ -n "$$(docker volume ls -q)" ]; then \
+	@if [ -n "$$(docker volume ls -q)" ]; then \
 		docker volume rm $$(docker volume ls -q); \
 	fi
-	if [ -n "$$(docker network ls -q)" ]; then \
+	@if [ -n "$$(docker network ls -q)" ]; then \
 		docker network rm $$(docker network ls -q) 2>/dev/null; \
 	fi
-	@rm -rf $(HOME)/data/wordpress
-	@rm -rf $(HOME)/data/mariadb
+	@rm -rf /home/$(LOGIN)/data/wordpress
+	@rm -rf /home/$(LOGIN)/data/mariadb
 	@rm -rf /home/$(LOGIN)/data
 	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
 	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
