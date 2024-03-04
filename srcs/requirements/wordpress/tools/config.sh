@@ -6,8 +6,6 @@ sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm
 # instead of a Unix socket.                                             #
 #_______________________________________________________________________#
 
-echo "TESSSSSTE";
-
 sed -i -r "s/___DATABASE_NAME___/$DATABASE_NAME/1" wp-config.php;
 sed -i -r "s/___MYSQL_USER___/$MYSQL_USER/1" wp-config.php;
 sed -i -r "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/1" wp-config.php;
@@ -49,7 +47,4 @@ fi
 # configure WordPress, and create a new user.                           #
 #_______________________________________________________________________#
 
-exec "$@"
-#───────────────────────────────────────────────────────────────────────#
-# Execute any command-line arguments passed to the script.              #
-#_______________________________________________________________________#
+/usr/sbin/php-fpm7.3 -F
