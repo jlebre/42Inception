@@ -35,6 +35,10 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 # directory within the container.                                       #
 #_______________________________________________________________________#
 
+RUN chmod +x ./tools/setup.sh;
+
+ENTRYPOINT [ "./tools/setup.sh" ]
+
 COPY ./tools /var/www/
 #───────────────────────────────────────────────────────────────────────#
 # Copy the tools directory containing necessary files for MariaDB       #
