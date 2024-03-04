@@ -10,12 +10,14 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-RUN apt-get update && apt-get install -y mariadb-server
+RUN apt-get update && apt-get install -y mariadb-server mariadb-client
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - mariadb-server: MariaDB server package, which is a popular          #
 # open-source relational database server. It provides a robust          #
 # and scalable database solution for various applications.              #
+# - mariadb-client: MariaDB client package, used to log in the SQLdb    #
+# in the evaluation.                                                    #
 #                                                                       #
 # The "-y" option is used to automatically answer "yes" to prompts      #
 # that may appear during installation.                                  #
