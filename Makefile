@@ -61,8 +61,6 @@ fclean:
 	@if [ -n "$$(docker network ls -q)" ]; then \
 		docker network rm $$(docker network ls -q) 2>/dev/null; \
 	fi
-	@rm -rf /home/$(LOGIN)/data/wordpress
-	@rm -rf /home/$(LOGIN)/data/mariadb
 	@rm -rf /home/$(LOGIN)/data
 	@sed -i'' '/$(LOGIN)\.42\.fr/d' /etc/hosts
 	@sed -i'' '/www\.$(LOGIN)\.42\.fr/d' /etc/hosts
