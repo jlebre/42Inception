@@ -19,12 +19,6 @@ all: setup
 #_______________________________________________________________________#
 
 setup:
-	@if ! grep -q "jlebre.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 jlebre.42.fr" | tee -a /etc/hosts; \
-	fi; \
-	if ! grep -q "www.jlebre.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 www.jlebre.42.fr" | tee -a /etc/hosts; \
-	fi; \
 	mkdir -p /home/jlebre/data/wp; \
 	mkdir -p /home/jlebre/data/db
 #───────────────────────────────────────────────────────────────────────#
@@ -49,12 +43,9 @@ fclean:
 	docker rmi -f $$(docker images -qa); \
 	docker volume rm $$(docker volume ls -q); \
 	docker network rm $$(docker network ls -q) 2>/dev/null; \
-	rm -rf /home/jlebre/data; \
-	sed -i'' '/jlebre\.42\.fr/d' /etc/hosts; \
-	sed -i'' '/www\.jlebre\.42\.fr/d' /etc/hosts
+	rm -rf /home/jlebre/data;
 #───────────────────────────────────────────────────────────────────────#
 # Remove "data" directory and docker volumes inside.                    #
-# Remove login.42.fr from hosts file.                                   #
 #_______________________________________________________________________#
 
 re: fclean all
