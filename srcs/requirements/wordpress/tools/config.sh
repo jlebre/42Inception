@@ -6,6 +6,12 @@ sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm
 # instead of a Unix socket.                                             #
 #_______________________________________________________________________#
 
+sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /var/www/wp-config.php
+sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /var/www/wp-config.php
+sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /var/www/wp-config.php
+sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /var/www/wp-config.php
+sed -i "s/___HOSTNAME___/$HOSTNAME/g" /var/www/wp-config.php
+
 chown -R www-data:www-data /var/www/*;
 chown -R 755 /var/www/*;
 #───────────────────────────────────────────────────────────────────────#
@@ -30,7 +36,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	cd /var/www/html;
 	wp core download --allow-root;
 	mv /var/www/wp-config.php /var/www/html/
-	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} --admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
+	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
+		--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
+		--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
 	wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
 	wp theme install --allow-root twentytwentytwo --activate;
 fi
