@@ -5,25 +5,9 @@ while mysqladmin -h"$HOSTNAME" --silent; do
 done
 
 sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
-#───────────────────────────────────────────────────────────────────────#
-# Modify the PHP-FPM configuration file to listen on port 9000          #
-# instead of a Unix socket.                                             #
-#_______________________________________________________________________#
 
 chown -R www-data:www-data /var/www/*;
-#───────────────────────────────────────────────────────────────────────#
-# Change ownership of the /var/www directory recursively to the         #
-# www-data user and group.                                              #
-# Set permissions for files and directories within the /var/www         #
-# directory to 755.                                                     #
-#_______________________________________________________________________#
-
 mkdir -p /run/php/;
-#───────────────────────────────────────────────────────────────────────#
-# Create a directory for the PHP-FPM PID file if it doesn't exist.      #
-# Create an empty PID file for PHP-FPM.                                 #
-#_______________________________________________________________________#
-
 mkdir -p /var/www/html
 cd /var/www/html;
 if [ "$(ls -A /var/www/html)" ]; then
