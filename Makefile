@@ -13,7 +13,7 @@ setup:
 	@if [ ! -d "/home/jlebre/data" ]; then \
 		mkdir -p /home/jlebre/data/wp; \
 		mkdir -p /home/jlebre/data/db \
-	fi;
+	fi
 
 fclean:
 	@if [ -n "$$(docker ps -q)" ]; then \
