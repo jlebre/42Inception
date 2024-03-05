@@ -43,15 +43,14 @@ EXPOSE 3306
 #_______________________________________________________________________#
 
 COPY ./tools/setup.sh /
+RUN chmod +x /setup.sh
 #───────────────────────────────────────────────────────────────────────#
 # Copy the tools directory containing necessary files for MariaDB       #
 # setup to the appropriate directory within the container.              #
-#_______________________________________________________________________#
-
-RUN chmod +x /setup.sh
-#───────────────────────────────────────────────────────────────────────#
 # Set execute permissions for the setup script.                         #
 #_______________________________________________________________________#
+
+RUN chmod -R 755 /var/lib/mysql/
 
 CMD [ "./setup.sh" ]
 #───────────────────────────────────────────────────────────────────────#
