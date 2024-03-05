@@ -1,24 +1,9 @@
-###################
-#                 #
-# DOCKER-COMPOSE  #
-#                 #
-###################
-
 version: "3.8"
-#───────────────────────────────────────────────────────────────────────#
-# Version of Docker Compose. Check it with "docker-compose --version".  #  
-#_______________________________________________________________________#
 
 networks:
   project:
     name: project
     driver: bridge
-#───────────────────────────────────────────────────────────────────────#
-# Defines a costum network named 'project' with bridge driver.          #
-# A network in Docker provides communication between containers.        #
-# The 'bridge' driver is the default network driver for Docker,         #
-# enabling communication between containers on the same host.           #
-#_______________________________________________________________________#
 
 volumes:
   wp:
@@ -35,11 +20,6 @@ volumes:
       type: none
       o: bind
       device: /home/jlebre/data/db
-#───────────────────────────────────────────────────────────────────────#
-# Defines two volumes 'wp' and 'db' for persisting data.                #
-# "db" is a volume that contains Wordpress database.                    #
-# "wp" is a volume that contains Wordpress website files.               #
-#_______________________________________________________________________#
 
 services:
   mariadb:
@@ -52,11 +32,6 @@ services:
     networks:
       - project
     restart: on-failure
-#───────────────────────────────────────────────────────────────────────#
-# MariaDB is a popular open-source relational database management       #
-# system. In this context, it's a Docker service that provides          #
-# a MariaDB database server.                                            #
-#_______________________________________________________________________#
 
   wordpress:
     container_name: wordpress
@@ -70,10 +45,6 @@ services:
     networks:
       - project
     restart: on-failure
-#───────────────────────────────────────────────────────────────────────#
-# WordPress is a popular open-source content management system. In this #
-# context, it's a Docker service representing a WordPress website.      #
-#_______________________________________________________________________#
 
   nginx:
     container_name: nginx
@@ -87,14 +58,3 @@ services:
     networks:
       - project
     restart: on-failure
-#───────────────────────────────────────────────────────────────────────#
-# Nginx is a popular open-source web server and reverse proxy server. In#
-# this context, it's a Docker service representing an Nginx server that #
-# serves the WordPress website.                                         #
-#_______________________________________________________________________#
-
-###################
-#                 #
-#     jlebre      #
-#                 #
-###################
