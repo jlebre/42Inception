@@ -48,7 +48,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp theme install --allow-root twentytwentytwo --activate;
 fi
 #───────────────────────────────────────────────────────────────────────#
-# If wp-config.php does not exist, download WordPress CLI,              #
+# If wp-config.php does not exist,                                      #
 # configure WordPress, and create a new user.                           #
 #_______________________________________________________________________#
 
