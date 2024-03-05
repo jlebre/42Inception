@@ -35,7 +35,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	mv /wp-config.php /var/www/html/
 
 	wp core download --allow-root;
-	until mysqladmin ping -h ${HOSTNAME} -u ${MYSQL_USER} -p ${MYSQL_PASSWORD}; do
+	until mysqladmin ping -h${DATABASE_NAME} -u${MYSQL_USER} -p${MYSQL_PASSWORD}; do
 		echo "Waiting for MySQL to start...";
 		sleep 1;
 	done
