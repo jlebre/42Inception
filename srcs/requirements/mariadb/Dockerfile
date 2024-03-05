@@ -7,11 +7,11 @@ RUN chmod +w /run/mysqld
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-EXPOSE 3306
-
 COPY ./tools/setup.sh /
 RUN chmod +x /setup.sh
 
 RUN chmod -R 755 /var/lib/mysql
+
+EXPOSE 3306
 
 CMD [ "./setup.sh" ]
