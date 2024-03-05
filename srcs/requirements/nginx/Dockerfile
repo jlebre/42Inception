@@ -10,7 +10,7 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-RUN apt-get update && apt-get install -y nginx openssl
+RUN apt-get update -y && apt-get install nginx openssl -y
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - nginx: Nginx web server, which is a popular web server known        #

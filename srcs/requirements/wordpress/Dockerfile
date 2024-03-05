@@ -10,7 +10,7 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-RUN apt-get update && apt-get install -y php7.3 php-mysqli php-fpm wget sendmail
+RUN apt-get update -y && apt-get install php7.3 php-mysqli php-fpm wget sendmail -y
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - php7.3: PHP version 7.3.                                            #
