@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 15
+
 sed -i "s/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
 #───────────────────────────────────────────────────────────────────────#
 # Modify the PHP-FPM configuration file to listen on port 9000          #
@@ -37,11 +39,6 @@ cd /var/www/html;
 mv /wp-config.php /var/www/html/
 
 wp core download --allow-root;
-until mysqladmin ping -h${DATABASE_NAME} -u${MYSQL_USER} -p${MYSQL_PASSWORD}; do
-	echo "Waiting for MySQL to start...";
-	sleep 1;
-done
-
 wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci";
 wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
 	--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \

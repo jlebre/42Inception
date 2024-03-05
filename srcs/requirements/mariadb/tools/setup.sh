@@ -1,16 +1,17 @@
 #!/bin/bash
 
 service mariadb start
+while [ ! -S /run/mysqld/mysqld.sock ]; do
+    echo "Waiting for mysqld.sock to be created..."
+    sleep 3
+done
+
 echo "CREATE DATABASE $DATABASE_NAME;" | mariadb
 echo "CREATE USER '$MYSQL_USER'@'' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
 echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
 echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" | mariadb
 echo "FLUSH PRIVILEGES;" | mariadb
 
-while [ ! -S /run/mysqld/mysqld.sock ]; do
-    echo "Waiting for mysqld.sock to be created..."
-    sleep 3
-done
 
 service mariadb stop
 
