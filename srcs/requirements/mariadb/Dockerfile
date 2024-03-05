@@ -23,15 +23,14 @@ RUN apt-get update -y && apt-get install -y mariadb-server mariadb-client -y
 # that may appear during installation.                                  #
 #_______________________________________________________________________#
 
-RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
-RUN chmod +w /run/mysqld
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
+RUN chmod +w /var/run/mysqld
 #───────────────────────────────────────────────────────────────────────#
 # Create the directory where the MariaDB server will store its PID      #
 # file and set the appropriate permissions.                             #
 #_______________________________________________________________________#
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-RUN ln -s /run/mysqld/mysqld.sock /var/run/mysqld/mysqld.sock
 #───────────────────────────────────────────────────────────────────────#
 # Copy the MariaDB server configuration file to the appropriate         #
 # directory within the container.                                       #
@@ -51,7 +50,7 @@ RUN chmod +x /setup.sh
 # Set execute permissions for the setup script.                         #
 #_______________________________________________________________________#
 
-RUN chmod -R 755 /var/lib/mysql/
+RUN chmod -R 755 /var/lib/mysql
 #───────────────────────────────────────────────────────────────────────#
 # Set the appropriate permissions for the MariaDB data directory.       #
 #_______________________________________________________________________#
