@@ -30,7 +30,7 @@ RUN chmod +w /run/mysqld
 # file and set the appropriate permissions.                             #
 #_______________________________________________________________________#
 
-#COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 #COPY ./conf/debian.cnf /etc/mysql/debian.cnf
 #───────────────────────────────────────────────────────────────────────#
 # Copy the MariaDB server configuration file to the appropriate         #
