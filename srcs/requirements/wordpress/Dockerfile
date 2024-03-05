@@ -10,7 +10,7 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-RUN apt-get update -y && apt-get install php7.3 php-mysql php-mysql php-fpm curl mariadb-server mariadb-client -y
+RUN apt-get update -y && apt-get install php php-mysql php-mysql php-fpm curl mariadb-server mariadb-client -y
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - php7.3: PHP version 7.3.                                            #
@@ -32,7 +32,7 @@ EXPOSE 9000
 
 COPY ./tools/config.sh /
 COPY ./tools/wp-config.php /
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
@@ -40,6 +40,13 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 RUN chmod +x /config.sh
 #───────────────────────────────────────────────────────────────────────#
 # Set execute permissions for the configuration script.                 # 
+#_______________________________________________________________________#
+
+RUN mkdir -p /var/run/;
+RUN mkdir -p /run/php/;
+#───────────────────────────────────────────────────────────────────────#
+# Create the directory where the PHP-FPM server will store its PID      #
+# file and set the appropriate permissions.                             #
 #_______________________________________________________________________#
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \

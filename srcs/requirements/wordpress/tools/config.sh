@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
+sed -i "s/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
 #───────────────────────────────────────────────────────────────────────#
 # Modify the PHP-FPM configuration file to listen on port 9000          #
 # instead of a Unix socket.                                             #
@@ -16,7 +16,7 @@ chown -R 755 /var/www/*;
 #_______________________________________________________________________#
 
 mkdir -p /run/php/;
-touch /run/php/php.7.3-fpm.pid;
+touch /run/php/php.8.2-fpm.pid;
 #───────────────────────────────────────────────────────────────────────#
 # Create a directory for the PHP-FPM PID file if it doesn't exist.      #
 # Create an empty PID file for PHP-FPM.                                 #
@@ -40,7 +40,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		sleep 1;
 	done
 
-#wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbprefix=wp_ --dbcharset="utf8" --dbcollate="utf8_general_ci";
+	wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci";
 	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
 		--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
@@ -52,4 +52,4 @@ fi
 # configure WordPress, and create a new user.                           #
 #_______________________________________________________________________#
 
-/usr/sbin/php-fpm7.3 -F
+/usr/sbin/php-fpm8.2 -F
