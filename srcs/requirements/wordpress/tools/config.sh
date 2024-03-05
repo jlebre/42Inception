@@ -22,34 +22,31 @@ touch /run/php/php.8.2-fpm.pid;
 # Create an empty PID file for PHP-FPM.                                 #
 #_______________________________________________________________________#
 
-if [ ! -f /var/www/html/wp-config.php ]; then
-
-	sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
-	sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
-	sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
-	sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
-	sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
-	
-	mkdir -p /var/www/html
-	cd /var/www/html;
-	mv /wp-config.php /var/www/html/
-
-	wp core download --allow-root;
-	until mysqladmin ping -h${DATABASE_NAME} -u${MYSQL_USER} -p${MYSQL_PASSWORD}; do
-		echo "Waiting for MySQL to start...";
-		sleep 1;
-	done
-
-	wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci";
-	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
-		--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
-		--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
-	wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
-	wp theme install --allow-root twentytwentytwo --activate;
+if [ "$(ls -A /var/www/html)" ]; then
+    rm -rf /var/www/html/*
 fi
-#───────────────────────────────────────────────────────────────────────#
-# If wp-config.php does not exist,                                      #
-# configure WordPress, and create a new user.                           #
-#_______________________________________________________________________#
+
+sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
+sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
+sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
+sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
+sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+
+mkdir -p /var/www/html
+cd /var/www/html;
+mv /wp-config.php /var/www/html/
+
+wp core download --allow-root;
+until mysqladmin ping -h${DATABASE_NAME} -u${MYSQL_USER} -p${MYSQL_PASSWORD}; do
+	echo "Waiting for MySQL to start...";
+	sleep 1;
+done
+
+wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci";
+wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
+	--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
+	--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
+wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
+wp theme install --allow-root twentytwentytwo --activate;
 
 /usr/sbin/php-fpm8.2 -F
