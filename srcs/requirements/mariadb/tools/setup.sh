@@ -1,20 +1,28 @@
 #!/bin/bash
 
-sleep 15
-
+if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ] then
+mysql_install_db
 service mariadb start
+mysql_secure_installation << EOF
 
-echo "CREATE USER '$MYSQL_USER'@'' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
-echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
-echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" | mariadb
-echo "FLUSH PRIVILEGES;" | mariadb
+n
+Y
+$MYSQL_ROOT_PASSWORD
+$MYSQL_ROOT_PASSWORD
+Y
+n
+Y
+Y
+EOF
 
-echo "CREATE DATABASE $DATABASE_NAME;" | mariadb
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 
+
+sleep 5
 service mariadb stop
+fi
 
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' ;" | mariadb -uroot -p$MYSQL_ROOT_PASSWORD --socket=/run/mysqld/mysqld.sock 
-echo "FLUSH PRIVILEGES;" | mariadb -uroot -p$MYSQL_ROOT_PASSWORD --socket=/run/mysqld/mysqld.sock
-
-
-exec mysqld --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid
+exec mysqld_safe --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid
