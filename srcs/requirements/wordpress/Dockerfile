@@ -11,7 +11,7 @@ FROM debian:buster
 #_______________________________________________________________________#
 
 RUN apt-get update -y && apt-get install -y iputils-ping php-mysql \
-    php-mysql php-fpm php-gd php-curl curl php-xml -y
+    php-mysql php-fpm php-gd php-curl curl php-xml
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - php7.3: PHP version 7.3.                                            #

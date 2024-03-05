@@ -27,7 +27,7 @@ EXPOSE 443
 # runtime. As per the subject, NGINX should listen on port 443.         #
 #_______________________________________________________________________#
 
-#COPY ./conf/default /etc/nginx/sites-enabled/default
+COPY ./conf/default /etc/nginx/sites-enabled/default
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 #───────────────────────────────────────────────────────────────────────#
 # Copy the NGINX default site configuration file to the appropriate     #

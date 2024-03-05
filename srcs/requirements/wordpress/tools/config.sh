@@ -14,8 +14,7 @@ sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php
 # instead of a Unix socket.                                             #
 #_______________________________________________________________________#
 
-#chown -R www-data:www-data /var/www/*;
-#chown -R 755 /var/www/*;
+chown -R www-data:www-data /var/www/*;
 #───────────────────────────────────────────────────────────────────────#
 # Change ownership of the /var/www directory recursively to the         #
 # www-data user and group.                                              #
