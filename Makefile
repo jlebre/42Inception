@@ -1,10 +1,10 @@
 DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
 
 all: setup
-	@$(DOCKER_COMPOSE) up
+	@$(DOCKER_COMPOSE) up -d
 
 build:
-	@$(DOCKER_COMPOSE) up --build
+	@$(DOCKER_COMPOSE) up -d --build
 
 start:
 	@$(DOCKER_COMPOSE) start
