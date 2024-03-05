@@ -40,7 +40,6 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 
 wp core download --allow-root;
 mv /wp-config.php /var/www/html/wp-config.php
-#wp config create --allow-root --dbname=$DATABASE_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=${HOSTNAME}:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci";
 wp core install --allow-root --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$WORDPRESS_USER --admin_password=$WORDPRESS_PASSWORD \
 	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email;
