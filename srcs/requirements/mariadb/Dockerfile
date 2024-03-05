@@ -43,7 +43,7 @@ EXPOSE 3306
 # directory within the container.                                       #
 #_______________________________________________________________________#
 
-COPY ./requirements/mariadb/tools/setup.sh /
+COPY ./tools/setup.sh /
 #───────────────────────────────────────────────────────────────────────#
 # Copy the tools directory containing necessary files for MariaDB       #
 # setup to the appropriate directory within the container.              #
@@ -54,7 +54,7 @@ RUN chmod +x /setup.sh
 # Set execute permissions for the setup script.                         #
 #_______________________________________________________________________#
 
-COPY ./requirements/wordpress/tools/wp-config.php /var/www/html/
+COPY ..//wordpress/tools/wp-config.php /var/www/html/
 
 CMD [ "bash", "setup.sh" ]
 #───────────────────────────────────────────────────────────────────────#

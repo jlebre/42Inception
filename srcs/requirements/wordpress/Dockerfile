@@ -30,9 +30,9 @@ EXPOSE 9000
 # runtime. As per the subject, Wordpress should listen on port 9000.    #
 #_______________________________________________________________________#
 
-COPY ./requirements/wordpress/tools/config.sh /
-COPY ./requirements/wordpress/tools/wp-config.php /
-COPY ./requirements/wordpress/conf/www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./tools/config.sh /
+COPY ./tools/wp-config.php /
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
