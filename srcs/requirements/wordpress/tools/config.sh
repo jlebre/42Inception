@@ -24,11 +24,11 @@ touch /run/php/php.7.3-fpm.pid;
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
-	sed -i -r "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
-	sed -i -r "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
-	sed -i -r "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
-	sed -i -r "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
-	sed -i -r "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+	sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
+	sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
+	sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
+	sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
+	sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
 	
 	mkdir -p /var/www/html
 	cd /var/www/html;
