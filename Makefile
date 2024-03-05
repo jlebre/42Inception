@@ -12,7 +12,7 @@ start:
 setup:
 	@if [ ! -d "/home/jlebre/data" ]; then \
 		mkdir -p /home/jlebre/data/wp; \
-		mkdir -p /home/jlebre/data/db
+		mkdir -p /home/jlebre/data/db \
 	fi;
 
 fclean:
