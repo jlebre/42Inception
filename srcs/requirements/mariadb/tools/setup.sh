@@ -31,5 +31,5 @@ service mariadb stop
 fi
 
 echo "STARTING MARIADB"
-exec mysqld_safe
+exec mysqld_safe 
 #--bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid
