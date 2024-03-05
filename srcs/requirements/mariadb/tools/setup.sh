@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [ ! -d /run/mysqld ]; then
-    mkdir -p /run/mysqld
-    chopwn mysql:mysql /run/mysqld
-fi
-
 if [ ! -d /var/lib/mysql/mysql ]; then
 mysql_install_db
 service mariadb start
