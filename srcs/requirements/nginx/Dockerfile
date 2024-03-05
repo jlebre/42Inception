@@ -34,12 +34,14 @@ COPY ./conf/default /etc/nginx/sites-enabled/default
 #_______________________________________________________________________#
 
 COPY ./tools/nginx.sh /
+RUN chmod +x /nginx.sh
 #───────────────────────────────────────────────────────────────────────#
 # Copy the NGINX startup script to the appropriate directory within     #
 # the container and set execute permissions for it.                     #
+# Set execute permissions for the NGINX startup script.                 #
 #_______________________________________________________________________#
 
-CMD [ "bash", "nginx.sh" ]
+CMD [ "./nginx.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start NGINX in foreground mode.         #
 #_______________________________________________________________________#
