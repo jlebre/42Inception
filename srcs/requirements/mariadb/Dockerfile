@@ -24,8 +24,6 @@ RUN apt-get update -y && apt-get install -y mariadb-server mariadb-client -y
 #_______________________________________________________________________#
 
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
-RUN mkdir -p var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
-RUN chmod 777 /var/run/mysqld
 
 #───────────────────────────────────────────────────────────────────────#
 # Create the directory where the MariaDB server will store its PID      #
@@ -55,7 +53,7 @@ RUN chmod +x /setup.sh
 # Set execute permissions for the setup script.                         #
 #_______________________________________________________________________#
 
-CMD [ "bash", "setup.sh" ]
+CMD [ "./setup.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start the MariaDB server.               #
 #_______________________________________________________________________#

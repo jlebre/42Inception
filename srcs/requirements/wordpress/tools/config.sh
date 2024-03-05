@@ -2,6 +2,16 @@
 
 sleep 15
 
+mkdir -p /run/php/;
+#───────────────────────────────────────────────────────────────────────#
+# Create the directory where the PHP-FPM server will store its PID      #
+# file and set the appropriate permissions.                             #
+#_______________________________________________________________________#
+
+
+
+
+
 sed -i "s/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
 #───────────────────────────────────────────────────────────────────────#
 # Modify the PHP-FPM configuration file to listen on port 9000          #
@@ -18,12 +28,13 @@ chown -R 755 /var/www/*;
 #_______________________________________________________________________#
 
 mkdir -p /run/php/;
-touch /run/php/php.8.2-fpm.pid;
 #───────────────────────────────────────────────────────────────────────#
 # Create a directory for the PHP-FPM PID file if it doesn't exist.      #
 # Create an empty PID file for PHP-FPM.                                 #
 #_______________________________________________________________________#
 
+mkdir -p /var/www/html
+cd /var/www/html;
 if [ "$(ls -A /var/www/html)" ]; then
     rm -rf /var/www/html/*
 fi
@@ -34,11 +45,12 @@ sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
 sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
 sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
 
-mkdir -p /var/www/html
-cd /var/www/html;
-mv /wp-config.php /var/www/html/
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root;
+mv /wp-config.php /var/www/html/
 wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci";
 wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
 	--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
