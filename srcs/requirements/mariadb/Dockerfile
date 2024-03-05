@@ -1,6 +1,6 @@
 FROM debian:buster
 
-RUN apt-get update -y && apt-get install -y mariadb-server mariadb-client -y
+RUN apt-get update -y && apt-get install -y mariadb mariadb-server mariadb-client -y
 
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 RUN chmod +w /run/mysqld
