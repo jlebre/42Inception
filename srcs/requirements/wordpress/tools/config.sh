@@ -22,7 +22,7 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 
 wp core download --allow-root;
 
-while mysqladmin -h"$HOSTNAME" --silent; do
+while ! mysqladmin ping -h"$HOSTNAME" --silent; do
     sleep 1;
 done
 
