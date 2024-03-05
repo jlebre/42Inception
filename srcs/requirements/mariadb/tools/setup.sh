@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -d /var/lib/mysql/mysql ]; then
+if [ ! -d /var/lib/mysql/$DATABASE_NAME ]; then
 mysql_install_db
 service mariadb start
 mysql_secure_installation << EOF
