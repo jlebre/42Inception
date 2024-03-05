@@ -1,7 +1,7 @@
 #!/bin/bash
 
-service mariadb start
 service mysql start
+service mariadb start
 
 if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
     mysql_install_db
@@ -24,8 +24,8 @@ mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS '$MYSQL_USE
 mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $DATABASE_NAME.* TO '$MYSQL_USER'@'%';"
 mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 
-service mysql stop
 service mariadb stop
+service mysql stop
 fi
 
 exec mysqld_safe

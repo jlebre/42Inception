@@ -31,7 +31,6 @@ RUN chmod +w /run/mysqld
 #_______________________________________________________________________#
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-#COPY ./conf/debian.cnf /etc/mysql/debian.cnf
 #───────────────────────────────────────────────────────────────────────#
 # Copy the MariaDB server configuration file to the appropriate         #
 # directory within the container.                                       #
