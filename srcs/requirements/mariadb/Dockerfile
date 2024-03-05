@@ -23,8 +23,8 @@ RUN apt-get update -y && apt-get install -y mariadb-server mariadb-client -y
 # that may appear during installation.                                  #
 #_______________________________________________________________________#
 
-RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
-RUN chmod +w /var/run/mysqld
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+RUN chmod +w /run/mysqld
 #───────────────────────────────────────────────────────────────────────#
 # Create the directory where the MariaDB server will store its PID      #
 # file and set the appropriate permissions.                             #
