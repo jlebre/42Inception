@@ -25,4 +25,4 @@ sleep 5
 service mariadb stop
 fi
 
-exec mysqld_safe --bind-address=0.0.0.0
+exec mysqld --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid

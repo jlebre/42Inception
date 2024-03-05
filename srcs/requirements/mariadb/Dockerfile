@@ -31,7 +31,7 @@ RUN chmod 777 /var/run/mysqld
 # file and set the appropriate permissions.                             #
 #_______________________________________________________________________#
 
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 EXPOSE 3306
 #───────────────────────────────────────────────────────────────────────#
