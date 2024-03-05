@@ -6,8 +6,9 @@ if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
     mysql_install_db
 fi
 
-mysql_secure_installation <<EOF
+mysql_secure_installation << EOF
 n
+Y
 $MYSQL_ROOT_PASSWORD
 $MYSQL_ROOT_PASSWORD
 Y
