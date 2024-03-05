@@ -24,25 +24,24 @@ RUN apt-get update -y && apt-get install -y mariadb-server mariadb-client -y
 #_______________________________________________________________________#
 
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
-#RUN mkdir -p var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
-#RUN chmod 777 /var/run/mysqld
+RUN mkdir -p var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
+RUN chmod 777 /var/run/mysqld
+
 #───────────────────────────────────────────────────────────────────────#
 # Create the directory where the MariaDB server will store its PID      #
 # file and set the appropriate permissions.                             #
 #_______________________________________________________________________#
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+#───────────────────────────────────────────────────────────────────────#
+# Copy the MariaDB server configuration file to the appropriate         #
+# directory within the container.                                       #
+#_______________________________________________________________________#
 
 EXPOSE 3306
 #───────────────────────────────────────────────────────────────────────#
 # This command indicates what ports should the container listen to at   #
 # runtime. As per the subject, MariaDB should listen on port 3306.      #
-#_______________________________________________________________________#
-
-#COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-#───────────────────────────────────────────────────────────────────────#
-# Copy the MariaDB server configuration file to the appropriate         #
-# directory within the container.                                       #
 #_______________________________________________________________________#
 
 COPY ./tools/setup.sh /
