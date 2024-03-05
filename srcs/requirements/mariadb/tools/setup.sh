@@ -3,6 +3,8 @@
 sleep 7
 
 service mariadb start
+sudo chmod 660 /run/mysqld/mysqld.sock
+sudo chown mysql:mysql /run/mysqld/mysqld.sock
 
 echo "CREATE USER '$MYSQL_USER'@'' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb
 echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mariadb

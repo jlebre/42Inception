@@ -18,6 +18,12 @@ all: setup
 # all services defined in the docker-compose.yml file                   #
 #_______________________________________________________________________#
 
+up:
+	@$(DOCKER_COMPOSE) up
+
+start:
+	@$(DOCKER_COMPOSE) start
+
 setup:
 	@mkdir -p /home/jlebre/data/wp; \
 	mkdir -p /home/jlebre/data/db
