@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 5
+
 service mysql start
 
 if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
