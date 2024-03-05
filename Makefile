@@ -11,15 +11,15 @@ DOCKER_COMPOSE = docker-compose -f ./srcs/docker-compose.yml
 #_______________________________________________________________________#
 
 all: setup
-	@$(DOCKER_COMPOSE) up --build
+	@$(DOCKER_COMPOSE) up
 #───────────────────────────────────────────────────────────────────────#
 # The "up" target is responsible for bringing up the Docker containers. #
 # Instructs Docker Compose to create and start containers for           #
 # all services defined in the docker-compose.yml file                   #
 #_______________________________________________________________________#
 
-up:
-	@$(DOCKER_COMPOSE) up
+built:
+	@$(DOCKER_COMPOSE) up --build
 
 start:
 	@$(DOCKER_COMPOSE) start
@@ -59,7 +59,7 @@ re: fclean all
 # Rebuild the project.                                                 #
 #_______________________________________________________________________#
 
-.PHONY: all, setup, fclean, re
+.PHONY: all, built, setup, fclean, re
 #───────────────────────────────────────────────────────────────────────#
 # Phony targets.                                                        #
 #_______________________________________________________________________#

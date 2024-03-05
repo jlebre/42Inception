@@ -26,4 +26,3 @@ mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 service mysql stop
 
 exec mysqld_safe
-#--datadir='/var/lib/mysql' --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid

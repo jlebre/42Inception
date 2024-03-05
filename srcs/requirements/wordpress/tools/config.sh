@@ -1,12 +1,8 @@
 #!/bin/bash
 
-sleep 30
-
-sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
-sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
-sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
-sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
-sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+while mysqladmin -h"$HOSTNAME" --silent; do
+    sleep 1;
+done
 
 sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
 #───────────────────────────────────────────────────────────────────────#
@@ -39,6 +35,13 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
     mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root;
+
+sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
+sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
+sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
+sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
+sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+
 mv /wp-config.php /var/www/html/wp-config.php
 wp core install --allow-root --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$WORDPRESS_USER --admin_password=$WORDPRESS_PASSWORD \
