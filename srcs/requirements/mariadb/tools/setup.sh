@@ -6,7 +6,7 @@ if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
     mysql_install_db
 fi
 
-mysql_secure_installation << EOF
+/usr/bin/mysql_secure_installation << EOF
 
 n
 Y
@@ -26,4 +26,4 @@ mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 service mariadb stop
 fi
 
-exec mysqld --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid
+exec /usr/bin/mysqld_safe --datadir='/var/lib/mysql' --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid
