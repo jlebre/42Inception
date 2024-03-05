@@ -54,8 +54,6 @@ RUN chmod +x /setup.sh
 # Set execute permissions for the setup script.                         #
 #_______________________________________________________________________#
 
-COPY ../wordpress/tools/wp-config.php /var/www/html/
-
 CMD [ "bash", "setup.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start the MariaDB server.               #
