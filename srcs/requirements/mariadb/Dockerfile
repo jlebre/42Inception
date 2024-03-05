@@ -41,7 +41,7 @@ COPY ./tools/setup.sh /
 # setup to the appropriate directory within the container.              #
 #_______________________________________________________________________#
 
-CMD ["/setup.sh"]
+CMD [ "bash", "/setup.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start the MariaDB server.               #
 #_______________________________________________________________________#

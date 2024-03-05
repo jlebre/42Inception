@@ -39,7 +39,7 @@ COPY ./tools/nginx.sh /
 # the container and set execute permissions for it.                     #
 #_______________________________________________________________________#
 
-CMD [ "/nginx.sh" ]
+CMD [ "bash", "/nginx.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start NGINX in foreground mode.         #
 #_______________________________________________________________________#

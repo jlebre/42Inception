@@ -41,7 +41,7 @@ COPY ./tools/wp-config.php /var/www/
 # Set execute permissions for the configuration script.                 # 
 #_______________________________________________________________________#
 
-CMD [ "/var/www/config.sh" ]
+CMD [ "bash", "/var/www/config.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start PHP-FPM in non-daemon mode.       #
 # The "--nodaemonize" flag instructs PHP-FPM to run in the foreground   #
