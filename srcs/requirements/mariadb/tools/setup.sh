@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
+#if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
 mysql_install_db
 service mariadb start
 mysql_secure_installation << EOF
@@ -20,9 +20,8 @@ mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS '$MYSQL_USE
 mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $DATABASE_NAME.* TO '$MYSQL_USER'@'%';"
 mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 
-
 sleep 5
 service mariadb stop
-fi
+#fi
 
 exec mysqld_safe --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid
