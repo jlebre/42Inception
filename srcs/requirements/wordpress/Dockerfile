@@ -31,8 +31,7 @@ EXPOSE 9000
 #_______________________________________________________________________#
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-COPY ./tools/config.sh /
-COPY ./tools/wp-config.php /
+COPY ./tools/ /var/www/
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
@@ -41,7 +40,7 @@ COPY ./tools/wp-config.php /
 # Set execute permissions for the configuration script.                 # 
 #_______________________________________________________________________#
 
-CMD [ "/config.sh" ]
+CMD [ "/var/www/config.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start PHP-FPM in non-daemon mode.       #
 # The "--nodaemonize" flag instructs PHP-FPM to run in the foreground   #

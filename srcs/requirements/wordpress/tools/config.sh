@@ -35,7 +35,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	mv wp-cli.phar /usr/local/bin/wp;
 	cd /var/www/html;
 	wp core download --allow-root;
-	mv /wp-config.php /var/www/html/
+	mv /var/www/wp-config.php /var/www/html/
 	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
 		--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
