@@ -37,7 +37,7 @@ EXPOSE 3306
 # runtime. As per the subject, MariaDB should listen on port 3306.      #
 #_______________________________________________________________________#
 
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+#COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 #───────────────────────────────────────────────────────────────────────#
 # Copy the MariaDB server configuration file to the appropriate         #
 # directory within the container.                                       #
