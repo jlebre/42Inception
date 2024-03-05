@@ -37,6 +37,7 @@ COPY ./tools/wp-config.php /var/www/
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
 
+RUN chmod +x /var/www/config.sh
 #───────────────────────────────────────────────────────────────────────#
 # Set execute permissions for the configuration script.                 # 
 #_______________________________________________________________________#
