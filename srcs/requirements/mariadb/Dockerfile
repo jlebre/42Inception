@@ -23,6 +23,14 @@ RUN apt-get update -y && apt-get install -y mariadb-server mariadb-client -y
 # that may appear during installation.                                  #
 #_______________________________________________________________________#
 
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+RUN mkdir -p var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
+RUN chmod 777 /var/run/mysqld
+#───────────────────────────────────────────────────────────────────────#
+# Create the directory where the MariaDB server will store its PID      #
+# file and set the appropriate permissions.                             #
+#_______________________________________________________________________#
+
 EXPOSE 3306
 #───────────────────────────────────────────────────────────────────────#
 # This command indicates what ports should the container listen to at   #
@@ -35,13 +43,20 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 # directory within the container.                                       #
 #_______________________________________________________________________#
 
-COPY ./tools/setup.sh /
+COPY ./requirements/mariadb/tools/setup.sh /
 #───────────────────────────────────────────────────────────────────────#
 # Copy the tools directory containing necessary files for MariaDB       #
 # setup to the appropriate directory within the container.              #
 #_______________________________________________________________________#
 
-CMD [ "bash", "/setup.sh" ]
+RUN chmod +x /setup.sh
+#───────────────────────────────────────────────────────────────────────#
+# Set execute permissions for the setup script.                         #
+#_______________________________________________________________________#
+
+COPY ./requirements/wordpress/tools/wp-config.php /var/www/html/
+
+CMD [ "bash", "setup.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start the MariaDB server.               #
 #_______________________________________________________________________#

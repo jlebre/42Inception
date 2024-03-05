@@ -10,7 +10,7 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-RUN apt-get update -y && apt-get install php7.3 php-mysql php-mysqli php-fpm wget -y
+RUN apt-get update -y && apt-get install php7.3 php-mysql php-mysql php-fpm curl mariadb-server mariadb-client -y
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - php7.3: PHP version 7.3.                                            #
@@ -30,19 +30,23 @@ EXPOSE 9000
 # runtime. As per the subject, Wordpress should listen on port 9000.    #
 #_______________________________________________________________________#
 
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-COPY ./tools/config.sh /var/www/
-COPY ./tools/wp-config.php /var/www/
+COPY ./requirements/wordpress/tools/config.sh /
+COPY ./requirements/wordpress/tools/wp-config.php /
+COPY ./requirements/wordpress/conf/www.conf /etc/php/7.3/fpm/pool.d/
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
 
-RUN chmod +x /var/www/config.sh
+RUN chmod +x /config.sh
 #───────────────────────────────────────────────────────────────────────#
 # Set execute permissions for the configuration script.                 # 
 #_______________________________________________________________________#
 
-CMD [ "bash", "/var/www/config.sh" ]
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
+
+CMD [ "bash", "config.sh" ]
 #───────────────────────────────────────────────────────────────────────#
 # Define the default command to start PHP-FPM in non-daemon mode.       #
 # The "--nodaemonize" flag instructs PHP-FPM to run in the foreground   #

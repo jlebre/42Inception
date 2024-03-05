@@ -1,16 +1,10 @@
 #!/bin/bash
 
-sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
+sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
 #───────────────────────────────────────────────────────────────────────#
 # Modify the PHP-FPM configuration file to listen on port 9000          #
 # instead of a Unix socket.                                             #
 #_______________________________________________________________________#
-
-sed -i -r "s/___DATABASE_NAME___/$DATABASE_NAME/1" /var/www/wp-config.php;
-sed -i -r "s/___MYSQL_USER___/$MYSQL_USER/1" /var/www/wp-config.php;
-sed -i -r "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/1" /var/www/wp-config.php;
-sed -i -r "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/1" /var/www/wp-config.php;
-sed -i -r "s/___HOSTNAME___/$HOSTNAME/1" /var/www/wp-config.php;
 
 chown -R www-data:www-data /var/www/*;
 chown -R 755 /var/www/*;
@@ -30,16 +24,22 @@ touch /run/php/php.7.3-fpm.pid;
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 	mkdir -p /var/www/html
-	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
-	chmod +x wp-cli.phar;
-	mv wp-cli.phar /usr/local/bin/wp;
 	cd /var/www/html;
+	mv /wp-config.php /var/www/html/
+
+	sed -i -r "s/___DATABASE_NAME___/$DATABASE_NAME/g" /var/www/wp-config.php;
+	sed -i -r "s/___MYSQL_USER___/$MYSQL_USER/g" /var/www/wp-config.php;
+	sed -i -r "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /var/www/wp-config.php;
+	sed -i -r "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /var/www/wp-config.php;
+	sed -i -r "s/___HOSTNAME___/$HOSTNAME/g" /var/www/wp-config.php;
+
 	wp core download --allow-root;
 	until mysqladmin ping -h ${HOSTNAME} -u ${MYSQL_USER} -p ${MYSQL_PASSWORD}; do
 		echo "Waiting for MySQL to start...";
 		sleep 1;
 	done
-	mv /var/www/wp-config.php /var/www/html/
+
+	wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbprefix=wp_ --dbcharset="utf8" --dbcollate="utf8_general_ci";
 	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
 		--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;
