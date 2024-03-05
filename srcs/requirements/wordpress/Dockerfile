@@ -8,8 +8,6 @@ COPY ./tools/wp-config.php /
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 RUN chmod +x /config.sh
 
-RUN chown -R www-data:www-data /var/www/*
-
 RUN mkdir -p /run/php/
 
 EXPOSE 9000
