@@ -31,6 +31,7 @@ RUN chmod +w /run/mysqld
 #_______________________________________________________________________#
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN ln -s /run/mysqld/mysqld.sock /var/run/mysqld/mysqld.sock
 #───────────────────────────────────────────────────────────────────────#
 # Copy the MariaDB server configuration file to the appropriate         #
 # directory within the container.                                       #
