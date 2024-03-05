@@ -40,7 +40,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		sleep 1;
 	done
 
-	wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbprefix=wp_ --dbcharset="utf8" --dbcollate="utf8_general_ci";
+#wp config create --allow-root --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 --dbprefix=wp_ --dbcharset="utf8" --dbcollate="utf8_general_ci";
 	wp core install --allow-root --url=${DOMAIN}/ --title=${WORDPRESS_TITLE} \
 		--admin_user=${MYSQL_USER} --admin_password=${MYSQL_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email;

@@ -31,6 +31,8 @@ RUN chmod 777 /var/run/mysqld
 # file and set the appropriate permissions.                             #
 #_______________________________________________________________________#
 
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+
 EXPOSE 3306
 #───────────────────────────────────────────────────────────────────────#
 # This command indicates what ports should the container listen to at   #
