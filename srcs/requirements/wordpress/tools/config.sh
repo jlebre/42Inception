@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 20
+sleep 30
 
 sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
 sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
