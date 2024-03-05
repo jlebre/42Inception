@@ -28,7 +28,7 @@ EXPOSE 443
 #_______________________________________________________________________#
 
 #COPY ./conf/default /etc/nginx/sites-enabled/default
-COPY ./conf/default /etc/nginx/nginx.conf
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 #───────────────────────────────────────────────────────────────────────#
 # Copy the NGINX default site configuration file to the appropriate     #
 # directory within the container.                                       #
