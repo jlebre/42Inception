@@ -10,7 +10,7 @@ FROM debian:buster
 # built should be based on. "buster" is the codename for Debian 10.     #
 #_______________________________________________________________________#
 
-RUN apt-get update -y && apt-get install php7.3 php-mysqli php-fpm wget -y
+RUN apt-get update -y && apt-get install php7.3 php-mysql php-mysqli php-fpm wget -y
 #───────────────────────────────────────────────────────────────────────#
 # Update everything and install:                                        #
 # - php7.3: PHP version 7.3.                                            #
@@ -31,7 +31,8 @@ EXPOSE 9000
 #_______________________________________________________________________#
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-COPY ./tools/ /var/www/
+COPY ./tools/config.sh /var/www/
+COPY ./tools/wp-config.php /var/www/
 #───────────────────────────────────────────────────────────────────────#
 # Copy configuration files and tools into the container.                #
 #_______________________________________________________________________#
