@@ -23,15 +23,16 @@ touch /run/php/php.7.3-fpm.pid;
 #_______________________________________________________________________#
 
 if [ ! -f /var/www/html/wp-config.php ]; then
+
+	sed -i -r "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
+	sed -i -r "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
+	sed -i -r "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
+	sed -i -r "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
+	sed -i -r "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+	
 	mkdir -p /var/www/html
 	cd /var/www/html;
 	mv /wp-config.php /var/www/html/
-
-	sed -i -r "s/___DATABASE_NAME___/$DATABASE_NAME/g" /var/www/wp-config.php;
-	sed -i -r "s/___MYSQL_USER___/$MYSQL_USER/g" /var/www/wp-config.php;
-	sed -i -r "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /var/www/wp-config.php;
-	sed -i -r "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /var/www/wp-config.php;
-	sed -i -r "s/___HOSTNAME___/$HOSTNAME/g" /var/www/wp-config.php;
 
 	wp core download --allow-root;
 	until mysqladmin ping -h ${HOSTNAME} -u ${MYSQL_USER} -p ${MYSQL_PASSWORD}; do
