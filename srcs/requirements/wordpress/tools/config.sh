@@ -6,7 +6,7 @@ sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
 sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
 sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
 
-sleep 35;
+sleep 15;
 mkdir -p /var/www/html
 chown -R www-data:www-data /var/www/*
 cd /var/www/html;
