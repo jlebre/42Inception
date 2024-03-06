@@ -21,7 +21,7 @@ wp core download --allow-root
 
 sleep 10
 
-cp /wp-config.php /var/www/html/wp-config.php
+mv /wp-config.php /var/www/html/wp-config.php
 
 sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf"
 
@@ -35,6 +35,9 @@ wp theme install --allow-root twentytwentytwo --activate
 
 wp plugin update --all --allow-root
 
-chown -R www-data:www-data /var/www/html/wp-content
+chown -R www-data:www-data /var/www/html/
+chmod -R 644 /var/www/html/wp-content/
+chmod -R 644 /var/www/html/wp-admin/
+chmod -R 644 /var/www/html/wp-includes/
 
 /usr/sbin/php-fpm7.3 -F
