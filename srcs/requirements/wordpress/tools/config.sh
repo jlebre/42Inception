@@ -18,7 +18,6 @@ mv wp-cli.phar /usr/local/bin/wp
 #sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
 #sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
 #sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
-
 #mv /wp-config.php /var/www/html/wp-config.php
 
 wp core download --allow-root
@@ -28,6 +27,15 @@ sleep 10
 wp config create --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} \
 	--dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 \
 	--dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
+
+wp config set AUTH_KEY ${AUTH_KEY} --type=constant
+wp config set SECURE_AUTH_KEY ${SECURE_AUTH_KEY} --type=constant
+wp config set LOGGED_IN_KEY ${LOGGED_IN_KEY} --type=constant
+wp config set NONCE_KEY ${NONCE_KEY} --type=constant
+wp config set AUTH_SALT ${AUTH_SALT} --type=constant
+wp config set SECURE_AUTH_SALT ${SECURE_AUTH_SALT} --type=constant
+wp config set LOGGED_IN_SALT ${LOGGED_IN_SALT} --type=constant
+wp config set NONCE_SALT ${NONCE_SALT} --type=constant
 
 wp core install --url=${DOMAIN} --title=${WORDPRESS_TITLE} \
 	--admin_user=${WORDPRESS_USER} --admin_password=${WORDPRESS_PASSWORD} \
