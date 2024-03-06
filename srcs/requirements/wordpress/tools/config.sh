@@ -29,7 +29,5 @@ wp core install --allow-root --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$WORDPRESS_USER --admin_password=$WORDPRESS_PASSWORD \
 	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email
 wp user create --allow-root $WP_USER $WP_EMAIL --user_pass=$WP_PASSWORD
-wp theme twentytwentytwo --activate --allow-root
-
 
 /usr/sbin/php-fpm7.3 -F

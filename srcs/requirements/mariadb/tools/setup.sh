@@ -3,7 +3,7 @@
 sleep 5
 if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
 mysql_install_db
-service mysql start
+service mariadb start
 mysql_secure_installation << EOF
 n
 Y
@@ -22,7 +22,7 @@ mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 sleep 15
 fi
 
-service mysql stop
+service mariadb stop
 exec mysqld_safe
 
 #sleep 5
