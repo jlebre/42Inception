@@ -19,10 +19,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	
 	sleep 10
 
-	#wp config create --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} \
-	#	--dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 \
-	#	--dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
-
 	wp core install --url=${DOMAIN} --title=${WORDPRESS_TITLE} \
 		--admin_user=${WORDPRESS_USER} --admin_password=${WORDPRESS_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --allow-root 
