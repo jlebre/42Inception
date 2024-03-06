@@ -9,7 +9,6 @@ sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
 sleep 15;
 mkdir -p /var/www/html
 #chown -R www-data:www-data /var/www/*
-chmod -R 755 /var/www/html
 cd /var/www/html;
 
 if [ "$(ls -A /var/www/html)" ]; then
@@ -23,6 +22,7 @@ mv wp-cli.phar /usr/local/bin/wp
 wp core download --allow-root
 
 cp /wp-config.php /var/www/html/wp-config.php
+chmod -R 755 /var/www/html
 
 sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf"
 
