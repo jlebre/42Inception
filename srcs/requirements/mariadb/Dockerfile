@@ -3,6 +3,8 @@ FROM debian:buster
 RUN apt-get update -y && apt-get install -y mariadb-server
 
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
+RUN chmod -R 755 /var/run/mysqld
 RUN chmod +w /run/mysqld
 RUN chmod -R 755 /var/lib/mysql
 
@@ -13,4 +15,4 @@ RUN chmod +x /setup.sh
 
 EXPOSE 3306
 
-CMD [ "./setup.sh" ]
+ENTRYPOINT [ "bash" , "setup.sh" ]

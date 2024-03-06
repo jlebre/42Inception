@@ -23,4 +23,4 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 EXPOSE 9000
 
-CMD [ "./config.sh" ]
+ENTRYPOINT [ "bash" , "config.sh" ]
