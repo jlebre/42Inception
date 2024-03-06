@@ -5,7 +5,7 @@ RUN apt-get update -y && apt-get install -y iputils-ping php-mysql \
 
 COPY ./tools/config.sh /
 COPY ./tools/wp-config.php /
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
+#COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 RUN chmod +x /config.sh
 
 RUN mkdir -p /run/php/
