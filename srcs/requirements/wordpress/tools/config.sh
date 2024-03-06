@@ -1,10 +1,6 @@
 #!/bin/bash
 
-sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
-sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
-sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
-sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
-sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+sed -ie "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/" "/etc/php/7.3/fpm/pool.d/www.conf"
 
 mkdir -p /var/www/html
 cd /var/www/html
@@ -17,32 +13,36 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
+#sed -i "s/___DATABASE_NAME___/$DATABASE_NAME/g" /wp-config.php;
+#sed -i "s/___MYSQL_USER___/$MYSQL_USER/g" /wp-config.php;
+#sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
+#sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
+#sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
+
+#mv /wp-config.php /var/www/html/wp-config.php
+
 wp core download --allow-root
 
 sleep 10
 
-mv /wp-config.php /var/www/html/wp-config.php
+wp config create --dbname=${DATABASE_NAME} --dbuser=${MYSQL_USER} \
+	--dbpass=${MYSQL_PASSWORD} --dbhost=${HOSTNAME}:3306 \
+	--dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
 
-sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf"
-
-wp core install --allow-root --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
-	--admin_user=$WORDPRESS_USER --admin_password=$WORDPRESS_PASSWORD \
-	--admin_email=$WORDPRESS_ADMIN_EMAIL
+wp core install --url=${DOMAIN} --title=${WORDPRESS_TITLE} \
+	--admin_user=${WORDPRESS_USER} --admin_password=${WORDPRESS_PASSWORD} \
+	--admin_email=${WORDPRESS_ADMIN_EMAIL} --allow-root 
 
 wp theme activate twentytwentytwo --allow-root
 
-wp user create --allow-root $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD
+wp user create ${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_PASSWORD} --allow-root 
 
 wp post delete 1 --force --allow-root
 
-wp post create --allow-root --post_title='Inception' --post_content='I cannot look another second to this project. Mom, help me!' --post_status=publish --post_author=1
+wp post create --post_title='Inception' --post_content='I cannot look another second to this project. Mom, help me!' --post_status=publish --post_author=1 --allow-root 
 
 wp cache flush --allow-root
 
-wp admin css clear --allow-root
+chown -R www-data:www-data /var/www/html/wp-content
 
-chown -R www-data:www-data /var/www/html/
-find /var/www/html/ -type d -exec chmod 755 {} \;
-find /var/www/html/ -type f -exec chmod 644 {} \;
-
-/usr/sbin/php-fpm7.3 -F
+exec /usr/sbin/php-fpm7.3 -F
