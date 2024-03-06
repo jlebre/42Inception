@@ -84,7 +84,7 @@ define( 'WP_DEBUG_LOG', '/tmp/wp-errors.log' );
 
 /** Caminho absoluto para a pasta do WordPress. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', '/var/www/html/wordpress' );
+	define( 'ABSPATH', '/var/www/html/' );
 }
 
 define( 'WP_CACHE', true);
