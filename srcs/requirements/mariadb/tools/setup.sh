@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if grep -q "skip-grant-tables" "/etc/mysql/my.cnf"; then
+    sed -i "s/^skip-grant-tables/#skip-grant-tables/g" "/etc/mysql/my.cnf"
+fi
+
 if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
 mysql_install_db
 service mysql start
