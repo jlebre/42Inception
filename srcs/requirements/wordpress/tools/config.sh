@@ -29,11 +29,17 @@ wp core install --allow-root --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$WORDPRESS_USER --admin_password=$WORDPRESS_PASSWORD \
 	--admin_email=$WORDPRESS_ADMIN_EMAIL
 
+wp theme activate twentytwentytwo --allow-root
+
 wp user create --allow-root $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD
 
-wp theme install --allow-root twentytwentytwo --activate
+wp post delete 1 --force --allow-root
 
-wp plugin update --all --allow-root
+wp post create --allow-root --post_title='Inception' --post_content='I cannot look another second to this project. Mom, help me!' --post_status=publish --post_author=1
+
+wp cache flush --allow-root
+
+wp admin css clear --allow-root
 
 chown -R www-data:www-data /var/www/html/
 find /var/www/html/ -type d -exec chmod 755 {} \;
