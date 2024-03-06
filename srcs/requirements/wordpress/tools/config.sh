@@ -19,7 +19,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-sleep 15
+sleep 10
 
 cp /wp-config.php /var/www/html/wp-config.php
 
@@ -27,7 +27,7 @@ sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm
 
 wp core install --allow-root --url=$DOMAIN/ --title=$WORDPRESS_TITLE \
 	--admin_user=$WORDPRESS_USER --admin_password=$WORDPRESS_PASSWORD \
-	--admin_email=$WORDPRESS_ADMIN_EMAIL --skip-email
+	--admin_email=$WORDPRESS_ADMIN_EMAIL
 
 wp user create --allow-root $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD
 
@@ -35,6 +35,6 @@ wp theme install --allow-root twentytwentytwo --activate
 
 wp plugin update --all --allow-root
 
-chown -R www-data:www-data /var/www/html
+chown -R www-data:www-data /var/www/html/wp-content
 
 /usr/sbin/php-fpm7.3 -F
