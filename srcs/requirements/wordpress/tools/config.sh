@@ -27,8 +27,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--admin_user=${WORDPRESS_USER} --admin_password=${WORDPRESS_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --allow-root 
 
-	wp theme activate twentytwentytwo --allow-root
-
 	wp user create ${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_PASSWORD} --allow-root 
 
 	wp post delete 1 --force --allow-root
