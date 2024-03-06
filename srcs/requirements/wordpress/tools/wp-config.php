@@ -79,12 +79,16 @@ $table_prefix = 'wp_';
  */
 define( 'WP_DEBUG', true );
 
+define( 'WP_DEBUG_LOG', '/tmp/wp-errors.log' );
 /* E é tudo. Pare de editar! */
 
 /** Caminho absoluto para a pasta do WordPress. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', '/var/www/html/wordpress' );
 }
+
+define( 'WP_CACHE', true);
+define( 'WP_CACHE_KEY_SALT',  '_server_name_');
 
 /** Define as variáveis do WordPress e ficheiros a incluir. */
 require_once ABSPATH . 'wp-settings.php';
