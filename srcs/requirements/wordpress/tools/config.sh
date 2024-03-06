@@ -6,9 +6,8 @@ sed -i "s/___MYSQL_PASSWORD___/$MYSQL_PASSWORD/g" /wp-config.php;
 sed -i "s/___MYSQL_ROOT_PASSWORD___/$MYSQL_ROOT_PASSWORD/g" /wp-config.php;
 sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
 
-sleep 15;
+sleep 10;
 mkdir -p /var/www/html
-#chown -R www-data:www-data /var/www/*
 cd /var/www/html;
 
 if [ "$(ls -A /var/www/html)" ]; then
@@ -21,10 +20,10 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-sleep 5
+sleep 10
 
 cp /wp-config.php /var/www/html/wp-config.php
-chmod -R 755 /var/www/html
+chmod -R 666 /var/www/html/
 
 sed -i "s/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf"
 
