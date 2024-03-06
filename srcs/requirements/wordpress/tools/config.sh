@@ -25,7 +25,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
 	wp theme activate twentytwentytwo --allow-root
 	wp user create ${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_PASSWORD} --allow-root 
-	wp post delete $(wp post list --post_type=post --format=ids) --force --allow-root
+	wp post delete $(wp post list --post_type=post --format=ids --allow-root) --force --allow-root
 	wp post create --post_title='The Prestige' --post_content='Are you watching closely?' --post_status=publish --post_author=1 --allow-root
 	wp post create --post_title='Interstellar' --post_content='We are not meant to save the world. We are meant to leave it.' --post_status=publish --post_author=1 --allow-root
 	wp post create --post_title='Dunkirk' --post_content='We shall go on to the end. We shall fight in France, we shall fight on the seas and oceans, we shall fight with growing confidence and growing strength in the air, we shall defend our island, whatever the cost may be. We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets, we shall fight in the hills; we shall never surrender.' --post_status=publish --post_author=1 --allow-root
