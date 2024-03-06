@@ -1,7 +1,8 @@
 FROM debian:buster
 
 RUN apt-get update -y && apt-get install -y iputils-ping php-mysql \
-    php-mysql php-fpm php-gd php-curl curl php-xml sendmail 
+    php-mysql php-fpm php-gd php-curl curl php-xml sendmail mariadb-server \
+    mariadb-client php-mbstring php-zip php-xmlrpc php-soap php-intl php-cli
 
 RUN mkdir -p /var/run/
 RUN mkdir -p /run/php/
