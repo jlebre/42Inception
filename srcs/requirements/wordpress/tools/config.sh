@@ -19,7 +19,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-sleep 10
+sleep 5
 
 mv /wp-config.php /var/www/html/wp-config.php
 
@@ -36,8 +36,7 @@ wp theme install --allow-root twentytwentytwo --activate
 wp plugin update --all --allow-root
 
 chown -R www-data:www-data /var/www/html/
-chmod -R 644 /var/www/html/wp-content/
-chmod -R 644 /var/www/html/wp-admin/
-chmod -R 644 /var/www/html/wp-includes/
+find /var/www/html/ -type d -exec chmod 755 {} \;
+find /var/www/html/ -type f -exec chmod 644 {} \;
 
 /usr/sbin/php-fpm7.3 -F
