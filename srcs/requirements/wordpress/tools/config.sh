@@ -27,13 +27,21 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--admin_user=${WORDPRESS_USER} --admin_password=${WORDPRESS_PASSWORD} \
 		--admin_email=${WORDPRESS_ADMIN_EMAIL} --allow-root 
 
-	#wp user create ${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_PASSWORD} --allow-root 
-
-	#wp post delete 1 --force --allow-root
-
-	#wp post create --post_title='Inception' --post_content='I cannot look another second to this project. Mom, help me!' --post_status=publish --post_author=1 --allow-root 
-
-	#wp cache flush --allow-root
+	wp theme twentytwentytwo --activate --allow-root
+	wp user create ${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_PASSWORD} --allow-root 
+	wp post delete 1 --force --allow-root
+	wp post create --post_title='Inception' --post_content='I cannot look another second to this project. Mom, help me!' --post_status=publish --post_author=1 --allow-root 
+	wp post create --post_title='The Dark Knight' --post_content='I am Batman!' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='The Prestige' --post_content='Are you watching closely?' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Interstellar' --post_content='We are not meant to save the world. We are meant to leave it.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Dunkirk' --post_content='We shall go on to the end. We shall fight in France, we shall fight on the seas and oceans, we shall fight with growing confidence and growing strength in the air, we shall defend our island, whatever the cost may be. We shall fight on the beaches, we shall fight on the landing grounds, we shall fight in the fields and in the streets, we shall fight in the hills; we shall never surrender.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Tenet' --post_content='Don’t try to understand it. Feel it.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Memento' --post_content='I have this condition.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Insomnia' --post_content='I can’t get no sleep.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Following' --post_content='You take it away to show them what they had.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='Batman Begins' --post_content='It’s not who I am underneath, but what I do that defines me.' --post_status=publish --post_author=1 --allow-root
+	wp post create --post_title='The Dark Knight Rises' --post_content='A hero can be anyone.' --post_status=publish --post_author=1 --allow-root
+	wp cache flush --allow-root
 
 	chown -R www-data:www-data /var/www/html/wp-content
 fi
