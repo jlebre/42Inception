@@ -19,7 +19,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
-sleep 5
+sleep 10
 
 mv /wp-config.php /var/www/html/wp-config.php
 
