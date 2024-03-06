@@ -6,6 +6,9 @@ all: setup
 build:
 	@$(DOCKER_COMPOSE) up -d --build
 
+down:
+	@$(DOCKER_COMPOSE) down
+
 start:
 	@$(DOCKER_COMPOSE) start
 
@@ -27,6 +30,6 @@ fclean:
 
 re: fclean all
 
-.PHONY: all, build, setup, fclean, re
+.PHONY: all, build, down, start, setup, fclean, re
 
 # docker stop $$(docker ps -qa); docker rm $$(docker ps -qa); docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q); docker network rm $$(docker network ls -q) 2>/dev/null;
