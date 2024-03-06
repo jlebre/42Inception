@@ -9,6 +9,7 @@ sed -i "s/___HOSTNAME___/$HOSTNAME/g" /wp-config.php;
 sleep 15;
 mkdir -p /var/www/html
 #chown -R www-data:www-data /var/www/*
+chmod -R 755 /var/www/html
 cd /var/www/html;
 
 if [ "$(ls -A /var/www/html)" ]; then
