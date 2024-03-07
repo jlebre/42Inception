@@ -5,8 +5,8 @@ RUN apt-get update -y && apt-get install -y mariadb-server
 RUN rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
-RUN chmod -R 755 /var/run/mysqld
-RUN chmod +w /run/mysqld
+RUN chmod -R 777 /var/run/mysqld
+#RUN chmod +w /run/mysqld
 #RUN chmod -R 755 /var/lib/mysql
 
 #COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
