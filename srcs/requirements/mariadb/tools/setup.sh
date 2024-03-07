@@ -3,6 +3,9 @@
 if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
 mysql_install_db
 service mysql start
+
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$MYSQL_ROOT_PASSWORD';"
+
 mysql_secure_installation << EOF
 n
 Y
