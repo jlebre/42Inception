@@ -32,18 +32,16 @@ logs:
 	docker logs mariadb && docker logs wordpress
 
 info:
-	@echo "----------DOCKER PS----------" \
-	docker ps \
-	echo "----------NETWORKS----------" \
-	docker network ls \
-	echo "----------VOLUMES----------" \
-	docker volume ls \
-	echo "----------INSPECT DB----------" \
-	docker volume inspect db \
-	echo "----------INSPECT WP----------" \
-	docker volume inspect wp \
-	echo "----------ENSURE CONTAINERS WERE CREATED----------" \
-	srcs/docker-compose ls
+	@echo "----------DOCKER PS----------";\
+	docker ps; \
+	echo "----------NETWORKS----------"; \
+	docker network ls; \
+	echo "----------VOLUMES----------"; \
+	docker volume ls; \
+	echo "----------INSPECT DB----------"; \
+	docker volume inspect db; \
+	echo "----------INSPECT WP----------"; \
+	docker volume inspect wp; 
 
 re: fclean all
 
