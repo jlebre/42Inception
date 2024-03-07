@@ -1,29 +1,28 @@
 #!/bin/bash
 
-mysql_install_db
-service mysql start
+sed -i "s/__MYSQL_ROOT_PASSWORD__/$MYSQL_ROOT_PASSWORD/g" /install.txt;
 
-if [ ! -d "/var/lib/mysql/$DATABASE_NAME" ]; then
-mysql_secure_installation << EOF
-n
-Y
-$MYSQL_ROOT_PASSWORD
-$MYSQL_ROOT_PASSWORD
-Y
-n
-Y
-Y
-EOF
-
-mysql -u root -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;"
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS $DATABASE_NAME; GRANT ALL ON $DATABASE_NAME.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; FLUSH PRIVILEGES;"
-#mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS $DATABASE_NAME;"
-#mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-#mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $DATABASE_NAME.* TO '$MYSQL_USER'@'%';"
-#mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
+echo "Start -----------------------------"
+service mariadb start
+if [ -d "/var/lib/mysql/$DATABASE_NAME" ]; then
+    rm -rf /var/lib/mysql/$DATABASE_NAME
+fi
+echo "Secure installation ---------------"
+mysql_secure_installation < /install.txt
 
 sleep 5
-fi
-service mysql stop
+echo "Create DB and User ----------------"
+mysql -u root -e "CREATE DATABASE $DATABASE_NAME;"
+mysql -u root -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%';"
+mysql -u root -e "FLUSH PRIVILEGES;"
 
-exec mysqld_safe --bind-address=0.0.0.0 --socket=/var/run/mysqld/mysqld.sock --pid-file=/var/run/mysqld/mysqld.pid
+mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
+mysql -u root -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
+# Needed so root needs password
+mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
+
+echo "Stop ------------------------------"
+service mariadb stop
+
+exec mysqld_safe --bind-address=0.0.0.0 --socket=/run/mysqld/mysqld.sock --pid-file=/run/mysqld/mysqld.pid

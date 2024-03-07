@@ -28,8 +28,25 @@ fclean:
 	docker network rm $$(docker network ls -q) 2>/dev/null; \
 	rm -rf /home/jlebre/data;
 
+logs:
+	docker logs mariadb && docker logs wordpress
+
+info:
+	@echo "----------DOCKER PS----------" \
+	docker ps \
+	echo "----------NETWORKS----------" \
+	docker network ls \
+	echo "----------VOLUMES----------" \
+	docker volume ls \
+	echo "----------INSPECT DB----------" \
+	docker volume inspect db \
+	echo "----------INSPECT WP----------" \
+	docker volume inspect wp \
+	echo "----------ENSURE CONTAINERS WERE CREATED----------" \
+	srcs/docker-compose ls
+
 re: fclean all
 
-.PHONY: all, build, down, start, setup, fclean, re
+.PHONY: all, build, down, start, setup, fclean, logs, info, re
 
 # docker stop $$(docker ps -qa); docker rm $$(docker ps -qa); docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q); docker network rm $$(docker network ls -q) 2>/dev/null;

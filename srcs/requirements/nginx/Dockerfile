@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install nginx openssl libssl-dev -y
 
@@ -8,6 +8,7 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./tools/nginx.sh /
 RUN chmod +x /nginx.sh
 
+# Generate certificates
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt  -subj "/C=PT/ST=Lisbon/L=Lisbon/O=42Lisboa/CN=jlebre";
 
 EXPOSE 443

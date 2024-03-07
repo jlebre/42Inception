@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install -y mariadb-server
 
@@ -13,6 +13,7 @@ RUN chmod -R 777 /var/run/mysqld
 
 COPY ./tools/setup.sh /
 RUN chmod +x /setup.sh
+COPY ./tools/install.txt /
 
 EXPOSE 3306
 
