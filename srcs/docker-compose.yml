@@ -24,7 +24,6 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb:bullseye
     build: ./requirements/mariadb
     env_file:
       - .env
@@ -36,7 +35,6 @@ services:
 
   wordpress:
     container_name: wordpress
-    image: wordpress:bullseye
     build: ./requirements/wordpress
     env_file:
       - .env
@@ -50,7 +48,6 @@ services:
 
   nginx:
     container_name: nginx
-    image: nginx:bullseye
     build: ./requirements/nginx
     ports:
       - "443:443"
